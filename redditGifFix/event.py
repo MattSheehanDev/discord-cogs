@@ -14,11 +14,11 @@ class EventMixin(MixinMeta):
     __slots__: tuple = ()
 
     @commands.Cog.listener()
-    async def on_message(self, message: discord.Message) -> None:
+    async def on_message(self, message: discord.Message,  ctx: commands.Context) -> None:
         if message.author.bot:
             return
 		
-        ctx: commands.Context
+        #ctx: commands.Context
         #config: dict = await self.config.all_channels()
         #if message.channel.id not in config:
         #    return
