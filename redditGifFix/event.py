@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 from redbot.core import commands
 
-async def send_safe(ctx: commands.Context, message: str) -> None:
+async def send_safe(message: str, ctx: commands.Context) -> None:
     for page in pagify(message, page_length=1990):
         await ctx.send(page)
 
