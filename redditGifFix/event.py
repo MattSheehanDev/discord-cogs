@@ -10,11 +10,6 @@ from datetime import datetime, timedelta
 
 from redbot.core import commands
 
-async def send_safe(message: str) -> None:
-	ctx: commands.Context
-    for page in pagify(message, page_length=1990):
-        await ctx.send(page)
-
 class EventMixin(MixinMeta):
     __slots__: tuple = ()
 
@@ -32,7 +27,7 @@ class EventMixin(MixinMeta):
         newMsg = ""
         if "preview.redd.it" in msg:
             newMsg = msg.replace("preview.redd.it", "i.redd.it")
-            await send_safe(newMsg)
+            await reply(newMsg)
             #ctx.send(newMsg)
             #print("GREAT SCOTT")
             #print(newMsg)
