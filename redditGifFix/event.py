@@ -18,18 +18,9 @@ class EventMixin(MixinMeta):
         if message.author.bot:
             return
 		
-        #ctx: commands.Context
-        #config: dict = await self.config.all_channels()
-        #if message.channel.id not in config:
-        #    return
-		
         msg: str = message.content.lower()
         newMsg = ""
         if "preview.redd.it" in msg:
-            newMsg = msg.replace("preview.redd.it", "i.redd.it")
-            await message.reply(newMsg)
-            #ctx.send(newMsg)
-            #print("GREAT SCOTT")
-            #print(newMsg)
-        #print("FAILURE")
+            newMsg = msg.replace("preview.redd.it", "i.redd.it").split("?")
+            await message.reply(newMsg[0])
 		
