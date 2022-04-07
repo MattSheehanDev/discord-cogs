@@ -18,7 +18,7 @@ class EventMixin(MixinMeta):
         if message.author.bot:
             return
 		
-		ctx: commands.Context
+        ctx: commands.Context
         #config: dict = await self.config.all_channels()
         #if message.channel.id not in config:
         #    return
