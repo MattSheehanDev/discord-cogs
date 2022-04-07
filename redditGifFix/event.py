@@ -17,7 +17,8 @@ class EventMixin(MixinMeta):
     async def on_message(self, message: discord.Message) -> None:
         if message.author.bot:
             return
-
+		
+		ctx: commands.Context
         #config: dict = await self.config.all_channels()
         #if message.channel.id not in config:
         #    return
@@ -26,7 +27,7 @@ class EventMixin(MixinMeta):
         newMsg = ""
         if "preview.redd.it" in msg:
             newMsg = msg.replace("preview.redd.it", "i.redd.it")
-            message.send(newMsg)
+            ctx.send(newMsg)
             print("GREAT SCOTT")
             print(newMsg)
         print("FAILURE")
