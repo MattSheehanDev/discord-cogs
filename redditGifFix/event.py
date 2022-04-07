@@ -31,7 +31,7 @@ class EventMixin(MixinMeta):
         newMsg = ""
         if "preview.redd.it" in msg:
             newMsg = msg.replace("preview.redd.it", "i.redd.it")
-            await send_safe(ctx, newMsg)
+            await send_safe(newMsg)
             #ctx.send(newMsg)
             #print("GREAT SCOTT")
             #print(newMsg)
