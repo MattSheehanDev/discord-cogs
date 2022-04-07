@@ -4,9 +4,6 @@ from .abc import MixinMeta
 
 if TYPE_CHECKING:
     import discord
-    
-import random
-from datetime import datetime, timedelta
 
 from redbot.core import commands
 
@@ -19,7 +16,6 @@ class EventMixin(MixinMeta):
             return
 		
         msg: str = message.content.lower()
-        newMsg = ""
         if "preview.redd.it" in msg:
             newMsg = msg.replace("preview.redd.it", "i.redd.it").split("?")
             await message.reply(newMsg[0])
