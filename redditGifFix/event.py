@@ -26,7 +26,7 @@ class EventMixin(MixinMeta):
         newMsg = ""
         if "preview.redd.it" in msg:
             newMsg = msg.replace("preview.redd.it", "i.redd.it")
-            message.channel.createMessage(newMsg)
+            message.send(newMsg)
             print("GREAT SCOTT")
             print(newMsg)
         print("FAILURE")
