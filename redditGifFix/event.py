@@ -28,5 +28,5 @@ class EventMixin(MixinMeta):
             newMsg = message.content.lower().replace("preview.redd.it", "i.redd.it")
             print("GREAT SCOTT")
             print(newMsg)
-		print("FAILURE")
+        print("FAILURE")
 		
