@@ -26,5 +26,6 @@ class EventMixin(MixinMeta):
 		
         if "preview.redd.it" in msg:
             msg.replace("preview.redd.it", "i.redd.it")
+            print('GREAT SCOTT')
             print(msg)
 		
