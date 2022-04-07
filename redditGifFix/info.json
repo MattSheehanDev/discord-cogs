@@ -5,6 +5,6 @@
     "short" : "Fixes reddit gifs to properly embed",
     "description" : "This cog reacts to reddit gifs and updates the URL to make them load.",
     "tags" : ["fun"],
-    "requirements" : [""],
+    "requirements" : [],
     "hidden" : false
 }
