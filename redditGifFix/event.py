@@ -10,11 +10,15 @@ from datetime import datetime, timedelta
 
 from redbot.core import commands
 
+async def send_safe(ctx: commands.Context, message: str) -> None:
+    for page in pagify(message, page_length=1990):
+        await ctx.send(page)
+
 class EventMixin(MixinMeta):
     __slots__: tuple = ()
 
     @commands.Cog.listener()
-    async def on_message(self, message: discord.Message,  ctx: commands.Context) -> None:
+    async def on_message(self, message: discord.Message) -> None:
         if message.author.bot:
             return
 		
@@ -27,8 +31,9 @@ class EventMixin(MixinMeta):
         newMsg = ""
         if "preview.redd.it" in msg:
             newMsg = msg.replace("preview.redd.it", "i.redd.it")
-            ctx.send(newMsg)
-            print("GREAT SCOTT")
-            print(newMsg)
-        print("FAILURE")
+            await send_safe(ctx, newMsg)
+            #ctx.send(newMsg)
+            #print("GREAT SCOTT")
+            #print(newMsg)
+        #print("FAILURE")
 		
