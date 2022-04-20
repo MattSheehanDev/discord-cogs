@@ -54,7 +54,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         await ctx.tick()
 
     @emojiadmin.command()
-    async def emoji(self, ctx: commands.Context, count: int) -> None:
+    async def count(self, ctx: commands.Context, count: int) -> None:
         """Enable / Disable the reaction system."""
         await self.config.guild(ctx.guild).set_raw("dank_count", value=count)
         await ctx.tick()
