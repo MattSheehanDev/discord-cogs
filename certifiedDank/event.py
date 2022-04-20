@@ -80,7 +80,13 @@ Channel: {messageChannel.name}
 Date: {messageDate}
 {messageContent}
 """
-                    await channel.send(content=msg,embed=messageEmbeds)
+                    if messageEmbeds is None:
+                        await channel.send(content=msg)
+                        return
+
+                    if len(messageEmbeds) >= 1:
+                        await channel.send(content=msg,embed=messageEmbeds[0])
+                        return
 
 
         except discord.Forbidden:
