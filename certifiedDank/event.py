@@ -29,6 +29,10 @@ class EventMixin(MixinMeta):
         reactionCount = reaction.count
         messageAuthor = reaction.message.author
         messageChannel = reaction.message.channel
+        messageDate = reaction.message.created_at
+
+        messageContent = reaction.message.content
+        messageEmbeds = reaction.message.embeds
 
         if reactionId is None:
             await reaction.message.channel.send("Message reaction Id does not exist")
@@ -72,10 +76,11 @@ class EventMixin(MixinMeta):
                     channel = self.bot.get_channel(hallOfFame)
                     
                     msg = f"""User: {messageAuthor.display_name}
-                    Channel: {messageChannel.name}
-                    {reaction.message.content}
-                    """
-                    await channel.send(msg)
+Channel: {messageChannel.name}
+Date: {messageDate}
+{messageContent}
+"""
+                    await channel.send(content=msg,embed=messageEmbeds)
 
 
         except discord.Forbidden:
