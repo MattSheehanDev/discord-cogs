@@ -80,12 +80,10 @@ class EventMixin(MixinMeta):
                     Date: {messageDate}
                     {messageContent}"""
 
-                    if messageEmbeds is None:
-                        await channel.send(msg)
-                        return
+                    await channel.send(msg)
 
                     if len(messageEmbeds) >= 1:
-                        await channel.send(msg, False, messageEmbeds[0])
+                        await channel.send(embed=messageEmbeds[0])
                         return
 
         except discord.Forbidden:
