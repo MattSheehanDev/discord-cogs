@@ -35,11 +35,11 @@ class EventMixin(MixinMeta):
 
         # Only apply to enabled channels
         if reaction.message.channel.id not in config:
-            await reaction.message.channel.send("Config not found.")
+            await reaction.message.channel.send("Channel id not found in config")
             return
 
         if not config[reaction.message.channel.id]["enabled"]:
-            await reaction.message.channel.send("Config found but not enabled.")
+            await reaction.message.channel.send("Config not enabled for channel.")
             return
 
         # await reaction.message.channel.send("Configuration found")
@@ -65,10 +65,10 @@ class EventMixin(MixinMeta):
                 if reactionCount == emojiCount:
                     await reaction.message.reply("Certified Dank!")
                     channel = self.bot.get_channel(hallOfFame)
-                    await reaction.message.channel.send("Hall of fame channel found")
+                    # await reaction.message.channel.send("Hall of fame channel found")
 
-                    await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
-                    await reaction.message.channel.send(f"Attached images: {len(messageAttachments)}")
+                    # await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
+                    # await reaction.message.channel.send(f"Attached images: {len(messageAttachments)}")
 
                     msg = f"""User: {messageAuthor.display_name}
 Channel: {messageChannel.name}"""
@@ -106,11 +106,11 @@ Channel: {messageChannel.name}"""
                         # await channel.send(files=messageAttachments)
                         return
 
-        except discord.Forbidden:
-            await reaction.message.channel.send("I don't have the permissions to add a reaction")
-        except discord.NotFound:
-            await reaction.message.channel.send("Didn't add the emoji, couldn't find it.")
-        except discord.HTTPException:
-            await reaction.message.channel.send("Error while trying to add the emoji.")
+        # except discord.Forbidden:
+        #     await reaction.message.channel.send("I don't have the permissions to add a reaction")
+        # except discord.NotFound:
+        #     await reaction.message.channel.send("Didn't add the emoji, couldn't find it.")
+        # except discord.HTTPException:
+        #     await reaction.message.channel.send("Error while trying to add the emoji.")
         # finally:
         #     await reaction.message.channel.send("Unknown error.")

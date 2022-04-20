@@ -39,29 +39,29 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
     @commands.mod_or_permissions()
     @commands.guild_only()
     async def certifiedDankAdmin(self, ctx: commands.Context) -> None:
-        """Gets the admin commands for react emojis cog."""
+        """Gets the admin commands for certifiedDank cog."""
         pass
 
     @certifiedDankAdmin.command()
     async def enable(self, ctx: commands.Context, true_or_false: bool) -> None:
-        """Enable / Disable the reaction system."""
+        """Enable / Disable the reaction system for the current channel."""
         await self.config.channel(ctx.channel).set_raw("enabled", value=true_or_false)
         await ctx.tick()
 
     @certifiedDankAdmin.command()
     async def emoji(self, ctx: commands.Context, id: int) -> None:
-        """Enable / Disable the reaction system."""
+        """Change the emoji id for the trigger (server config)."""
         await self.config.guild(ctx.guild).set_raw("dank_emoji", value=id)
         await ctx.tick()
 
     @certifiedDankAdmin.command()
     async def count(self, ctx: commands.Context, count: int) -> None:
-        """Enable / Disable the reaction system."""
+        """Change the number (count) of the emoji required for trigger (server config)."""
         await self.config.guild(ctx.guild).set_raw("dank_count", value=count)
         await ctx.tick()
 
     @certifiedDankAdmin.command()
     async def dankhall(self, ctx: commands.Context, id: int) -> None:
-        """Enable / Disable the reaction system."""
+        """Change the Hall-of-Fame channel where messages are re-posted (server config)."""
         await self.config.guild(ctx.guild).set_raw("dank_hall", value=id)
         await ctx.tick()
