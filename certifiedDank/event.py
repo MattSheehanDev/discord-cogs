@@ -23,7 +23,10 @@ class EventMixin(MixinMeta):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction: discord.Reaction, user) -> None:
-        await reaction.message.channel.send("Emoji reaction detected.")
+        # await reaction.message.channel.send("Emoji reaction detected.")
+
+        reactionId = reaction.emoji.id
+        reactionCount = reaction.emoji.count
 
         config: dict = await self.config.all_channels()
 
@@ -41,18 +44,18 @@ class EventMixin(MixinMeta):
         try:
             guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
 
-            await reaction.message.channel.send("Configuration read")
+            # await reaction.message.channel.send("Configuration read")
 
-            for key in guild_conf:
-                await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
+            # for key in guild_conf:
+            #     await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
 
-            reaction.message.channel.send(f'Reaction emoji: {reaction.emoji.id}')
-            reaction.message.channel.send(f'Reaction count: {reaction.emoji.count}')
+            reaction.message.channel.send(f'Reaction emoji: {reactionId}')
+            reaction.message.channel.send(f'Reaction count: {reactionCount}')
 
             emojiId: int = guild_conf["dank_emoji"]
             emojiCount: int = guild_conf["dank_count"]
 
-            reaction.message.channel.send(f'emojiId: {emojiId} , emojiCount: {emojiCount}')
+            # reaction.message.channel.send(f'emojiId: {emojiId} , emojiCount: {emojiCount}')
 
             if reaction.emoji.id == emojiId:
                 if reaction.emoji.count == emojiCount:
