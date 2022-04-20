@@ -63,8 +63,8 @@ class EventMixin(MixinMeta):
 
             # reaction.message.channel.send(f'emojiId: {emojiId} , emojiCount: {emojiCount}')
 
-            if reaction.emoji.id == emojiId:
-                if reaction.emoji.count == emojiCount:
+            if reactionId == emojiId:
+                if reactionCount == emojiCount:
                     await reaction.message.reply("Certified Dank!")
 
         except discord.Forbidden:
