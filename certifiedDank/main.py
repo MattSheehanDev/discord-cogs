@@ -37,23 +37,23 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
     @commands.group()
     @commands.mod_or_permissions()
     @commands.guild_only()
-    async def emojiadmin(self, ctx: commands.Context) -> None:
+    async def certifiedDankAdmin(self, ctx: commands.Context) -> None:
         """Gets the admin commands for react emojis cog."""
         pass
 
-    @emojiadmin.command()
+    @certifiedDankAdmin.command()
     async def enable(self, ctx: commands.Context, true_or_false: bool) -> None:
         """Enable / Disable the reaction system."""
         await self.config.channel(ctx.channel).set_raw("enabled", value=true_or_false)
         await ctx.tick()
 
-    @emojiadmin.command()
+    @certifiedDankAdmin.command()
     async def emoji(self, ctx: commands.Context, id: int) -> None:
         """Enable / Disable the reaction system."""
         await self.config.guild(ctx.guild).set_raw("dank_emoji", value=id)
         await ctx.tick()
 
-    @emojiadmin.command()
+    @certifiedDankAdmin.command()
     async def count(self, ctx: commands.Context, count: int) -> None:
         """Enable / Disable the reaction system."""
         await self.config.guild(ctx.guild).set_raw("dank_count", value=count)
