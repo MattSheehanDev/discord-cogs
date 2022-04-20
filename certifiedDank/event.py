@@ -23,6 +23,19 @@ class EventMixin(MixinMeta):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction: discord.Reaction, user) -> None:
-        if reaction.emoji.id == 963153387048829009:
-            if reaction.emoji.count == 5:
+        config: dict = await self.config.all_channels()
+
+        # Only apply to enabled channels
+        if reaction.message.channel.id not in config:
+            return
+
+        if not config[reaction.message.channel.id]["enabled"]:
+            return
+
+        guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
+        emojiId: int = guild_conf["dank_emoji"] or 963153387048829009
+        emojiCount: list = guild_conf["dank_count"] or 1
+
+        if reaction.emoji.id == emojiId:
+            if reaction.emoji.count == emojiCount:
                 await reaction.message.reply("Certified Dank!")
