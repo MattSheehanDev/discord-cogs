@@ -25,7 +25,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
             self, identifier=2091831, force_registration=True)
 
         default_channel: Dict[str, Any] = {
-            "enabled": False,
+            "enabled": True,
         }
         default_guild: Dict[str, int] = {
             "dank_emoji": 963153387048829009,
@@ -33,3 +33,28 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         }
         self.config.register_channel(**default_channel)
         self.config.register_guild(**default_guild)
+
+    @commands.group()
+    @commands.mod_or_permissions()
+    @commands.guild_only()
+    async def emojiadmin(self, ctx: commands.Context) -> None:
+        """Gets the admin commands for react emojis cog."""
+        pass
+
+    @emojiadmin.command()
+    async def enable(self, ctx: commands.Context, true_or_false: bool) -> None:
+        """Enable / Disable the reaction system."""
+        await self.config.channel(ctx.channel).set_raw("enabled", value=true_or_false)
+        await ctx.tick()
+
+    @emojiadmin.command()
+    async def emoji(self, ctx: commands.Context, id: int) -> None:
+        """Enable / Disable the reaction system."""
+        await self.config.guild(ctx.guild).set_raw("dank_emoji", value=id)
+        await ctx.tick()
+
+    @emojiadmin.command()
+    async def emoji(self, ctx: commands.Context, count: int) -> None:
+        """Enable / Disable the reaction system."""
+        await self.config.guild(ctx.guild).set_raw("dank_count", value=count)
+        await ctx.tick()
