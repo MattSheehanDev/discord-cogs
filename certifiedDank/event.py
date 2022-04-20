@@ -90,7 +90,7 @@ Channel: {messageChannel.name}
                         return
 
                     if len(messageAttachments) >= 1:
-                        await channel.send(file=messageAttachments[0])
+                        await channel.send(files=messageAttachments)
                         return
 
         except discord.Forbidden:
