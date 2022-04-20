@@ -1,5 +1,4 @@
 from __future__ import annotations
-from _typeshed import NoneType
 from typing import TYPE_CHECKING
 from .abc import MixinMeta
 
