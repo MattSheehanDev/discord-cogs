@@ -32,8 +32,10 @@ class EventMixin(MixinMeta):
 
         messageContent = reaction.message.content
         messageEmbeds = reaction.message.embeds
+        messageAttachments = reaction.message.attachments
 
         await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
+        await reaction.message.channel.send(f"Attached images: {len(messageAttachments)}")
 
         if reactionId is None:
             await reaction.message.channel.send("Message reaction Id does not exist")
@@ -78,13 +80,17 @@ class EventMixin(MixinMeta):
                     await reaction.message.channel.send("Hall of fame channel found")
 
                     msg = f"""User: {messageAuthor.display_name}
-                    Channel: {messageChannel.name}
-                    {messageContent}"""
+Channel: {messageChannel.name}
+{messageContent}"""
 
                     await channel.send(msg)
 
                     if len(messageEmbeds) >= 1:
                         await channel.send(embed=messageEmbeds[0])
+                        return
+
+                    if len(messageAttachments) >= 1:
+                        await channel.send(file=messageAttachments[0])
                         return
 
         except discord.Forbidden:
