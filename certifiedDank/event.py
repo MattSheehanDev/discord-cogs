@@ -90,8 +90,10 @@ Channel: {messageChannel.name}"""
                         return
 
                     if len(messageEmbeds) >= 1:
+                        msg += f"""
+{messageContent}"""
                         em = messageEmbeds[0]
-                        embedFile = discord.Embed(url=em.url)
+                        embedFile = discord.Embed(title=em.title,url=em.url)
                         embedFile.set_image(em.url)
                         await channel.send(msg, embed=embedFile)
                         # await channel.send(embed=messageEmbeds[0])
