@@ -21,3 +21,15 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
 
     def __init__(self, bot: Red):
         self.bot: Red = bot
+        self.config: Config = Config.get_conf(
+            self, identifier=2091831, force_registration=True)
+
+        default_channel: Dict[str, Any] = {
+            "enabled": False,
+        }
+        default_guild: Dict[str, int] = {
+            "dank_emoji": 963153387048829009,
+            "dank_count": 1,
+        }
+        self.config.register_channel(**default_channel)
+        self.config.register_guild(**default_guild)
