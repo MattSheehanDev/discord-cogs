@@ -12,16 +12,6 @@ from redbot.core import commands
 class EventMixin(MixinMeta):
     __slots__: tuple = ()
 
-    # @commands.Cog.listener()
-    # async def on_message(self, message: discord.Message) -> None:
-    #     if message.author.bot:
-    #         return
-
-    #     msg: str = message.content.lower()
-    #     if "preview.redd.it" in msg:
-    #         newMsg = msg.replace("preview.redd.it", "i.redd.it").split("?")
-    #         await message.reply(newMsg[0])
-
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction: discord.Reaction, user) -> None:
         # await reaction.message.channel.send("Emoji reaction detected.")
@@ -35,14 +25,11 @@ class EventMixin(MixinMeta):
         messageEmbeds = reaction.message.embeds
         messageAttachments = reaction.message.attachments
 
-        await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
-        await reaction.message.channel.send(f"Attached images: {len(messageAttachments)}")
+        # if reactionId is None:
+        #     await reaction.message.channel.send("Message reaction Id does not exist")
 
-        if reactionId is None:
-            await reaction.message.channel.send("Message reaction Id does not exist")
-
-        if reactionCount is None:
-            await reaction.message.channel.send("Message reaction count does not exist")
+        # if reactionCount is None:
+        #     await reaction.message.channel.send("Message reaction count does not exist")
 
         config: dict = await self.config.all_channels()
 
@@ -80,6 +67,9 @@ class EventMixin(MixinMeta):
                     channel = self.bot.get_channel(hallOfFame)
                     await reaction.message.channel.send("Hall of fame channel found")
 
+                    await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
+                    await reaction.message.channel.send(f"Attached images: {len(messageAttachments)}")
+
                     msg = f"""User: {messageAuthor.display_name}
 Channel: {messageChannel.name}"""
 
@@ -95,9 +85,9 @@ Channel: {messageChannel.name}"""
                         em = messageEmbeds[0]
                         # await reaction.message.channel.send(em.url)
 
-                        embedFile = discord.Embed(title=em.title,url=em.url)
+                        # embedFile = discord.Embed(title=em.title,url=em.url)
                         # embedFile.set_image(em.url)
-                        await channel.send(msg, embed=embedFile)
+                        await channel.send(msg, embed=em)
                         # await channel.send(embed=messageEmbeds[0])
                         return
 
