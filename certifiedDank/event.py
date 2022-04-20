@@ -89,15 +89,17 @@ Channel: {messageChannel.name}"""
                         await channel.send(msg)
 
                     if len(messageEmbeds) >= 1:
-                        e = messageEmbeds[0]
-                        embedFile = discord.Embed(title=e.title,url=e.url)
-                        await channel.send(msg, embed=embedFile)
+                        em = messageEmbeds[0]
+                        embedFile = discord.Embed(title=em.title,url=em.url)
+                        embedFile.set_image(em.url)
+                        await channel.send(msg, embed=em)
                         # await channel.send(embed=messageEmbeds[0])
                         return
 
                     if len(messageAttachments) >= 1:
                         a = messageAttachments[0]
                         embedFile = discord.Embed(title=a.filename,url=a.url)
+                        embedFile.set_image(a.url)
                         await channel.send(msg, embed=embedFile)
                         # await channel.send(files=messageAttachments)
                         return
@@ -108,5 +110,5 @@ Channel: {messageChannel.name}"""
             await reaction.message.channel.send("Didn't add the emoji, couldn't find it.")
         except discord.HTTPException:
             await reaction.message.channel.send("Error while trying to add the emoji.")
-        finally:
-            await reaction.message.channel.send("Unknown error.")
+        # finally:
+        #     await reaction.message.channel.send("Unknown error.")
