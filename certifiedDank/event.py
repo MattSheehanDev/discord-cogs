@@ -2,9 +2,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, final
 from .abc import MixinMeta
 
-if TYPE_CHECKING:
-    import discord
+# if TYPE_CHECKING:
+#     import discord
 
+import discord
 from redbot.core import commands
 
 
@@ -80,17 +81,25 @@ class EventMixin(MixinMeta):
                     await reaction.message.channel.send("Hall of fame channel found")
 
                     msg = f"""User: {messageAuthor.display_name}
-Channel: {messageChannel.name}
-{messageContent}"""
+Channel: {messageChannel.name}"""
 
-                    await channel.send(msg)
+                    if len(messageEmbeds) == 0 and len(messageAttachments) == 0:
+                        msg += f"""
+{messageContent}"""
+                        await channel.send(msg)
 
                     if len(messageEmbeds) >= 1:
-                        await channel.send(embed=messageEmbeds[0])
+                        e = messageEmbeds[0].url
+                        embedFile = discord.Embed(title=e.title,url=e.url)
+                        await channel.send(msg, embed=embedFile)
+                        # await channel.send(embed=messageEmbeds[0])
                         return
 
                     if len(messageAttachments) >= 1:
-                        await channel.send(files=messageAttachments)
+                        a = messageAttachments[0]
+                        embedFile = discord.Embed(title=a.filename,url=a.url)
+                        await channel.send(msg, embed=embedFile)
+                        # await channel.send(files=messageAttachments)
                         return
 
         except discord.Forbidden:
