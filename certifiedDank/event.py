@@ -44,73 +44,73 @@ class EventMixin(MixinMeta):
 
         # await reaction.message.channel.send("Configuration found")
 
-        try:
-            guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
+        # try:
+        guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
 
-            # await reaction.message.channel.send("Configuration read")
+        # await reaction.message.channel.send("Configuration read")
 
-            # for key in guild_conf:
-            #     await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
+        # for key in guild_conf:
+        #     await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
 
-            # await reaction.message.channel.send(str(reactionId))
-            # await reaction.message.channel.send(str(reactionCount))
+        # await reaction.message.channel.send(str(reactionId))
+        # await reaction.message.channel.send(str(reactionCount))
 
-            emojiId: int = guild_conf["dank_emoji"]
-            emojiCount: int = guild_conf["dank_count"]
-            hallOfFame: int = guild_conf["dank_hall"]
+        emojiId: int = guild_conf["dank_emoji"]
+        emojiCount: int = guild_conf["dank_count"]
+        hallOfFame: int = guild_conf["dank_hall"]
 
-            # reaction.message.channel.send(f'emojiId: {emojiId} , emojiCount: {emojiCount}')
+        # reaction.message.channel.send(f'emojiId: {emojiId} , emojiCount: {emojiCount}')
 
-            if reactionId == emojiId:
-                if reactionCount == emojiCount:
-                    await reaction.message.reply("Certified Dank!")
-                    channel = self.bot.get_channel(hallOfFame)
-                    # await reaction.message.channel.send("Hall of fame channel found")
+        if reactionId == emojiId:
+            if reactionCount == emojiCount:
+                await reaction.message.reply("Certified Dank!")
+                channel = self.bot.get_channel(hallOfFame)
+                # await reaction.message.channel.send("Hall of fame channel found")
 
-                    # await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
-                    # await reaction.message.channel.send(f"Attached images: {len(messageAttachments)}")
+                # await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
+                # await reaction.message.channel.send(f"Attached images: {len(messageAttachments)}")
 
-                    msg = f"""User: {messageAuthor.display_name}
+                msg = f"""User: {messageAuthor.display_name}
 Channel: {messageChannel.name}"""
 
-                    if len(messageEmbeds) == 0 and len(messageAttachments) == 0:
-                        msg += f"""
+                if len(messageEmbeds) == 0 and len(messageAttachments) == 0:
+                    msg += f"""
 {messageContent}"""
-                        await channel.send(msg)
-                        return
+                    await channel.send(msg)
+                    return
 
-                    if len(messageEmbeds) >= 1:
-                        em = messageEmbeds[0]
+                if len(messageEmbeds) >= 1:
+                    em = messageEmbeds[0]
 
-                        msg += f"""
+                    msg += f"""
 {em.url}"""
-                        await channel.send(msg)
-                        # await reaction.message.channel.send(em.url)
+                    await channel.send(msg)
+                    # await reaction.message.channel.send(em.url)
 
-                        # embedFile = discord.Embed(title=em.title,url=em.url)
-                        # embedFile.set_image(em.url)
-                        # await channel.send(msg, embed=em)
-                        # await channel.send(embed=messageEmbeds[0])
-                        return
+                    # embedFile = discord.Embed(title=em.title,url=em.url)
+                    # embedFile.set_image(em.url)
+                    # await channel.send(msg, embed=em)
+                    # await channel.send(embed=messageEmbeds[0])
+                    return
 
-                    if len(messageAttachments) >= 1:
-                        a = messageAttachments[0]
+                if len(messageAttachments) >= 1:
+                    a = messageAttachments[0]
 
-                        msg += f"""
+                    msg += f"""
 {a.url}"""
-                        await channel.send(msg)
+                    await channel.send(msg)
 
-                        # embedFile = discord.Embed(title=a.filename,url=a.url)
-                        # embedFile.set_image(a.url)
-                        # await channel.send(msg, embed=embedFile)
-                        # await channel.send(files=messageAttachments)
-                        return
+                    # embedFile = discord.Embed(title=a.filename,url=a.url)
+                    # embedFile.set_image(a.url)
+                    # await channel.send(msg, embed=embedFile)
+                    # await channel.send(files=messageAttachments)
+                    return
 
-                        # except discord.Forbidden:
-                        #     await reaction.message.channel.send("I don't have the permissions to add a reaction")
-                        # except discord.NotFound:
-                        #     await reaction.message.channel.send("Didn't add the emoji, couldn't find it.")
-                        # except discord.HTTPException:
-                        #     await reaction.message.channel.send("Error while trying to add the emoji.")
-                        # finally:
-                        #     await reaction.message.channel.send("Unknown error.")
+                    # except discord.Forbidden:
+                    #     await reaction.message.channel.send("I don't have the permissions to add a reaction")
+                    # except discord.NotFound:
+                    #     await reaction.message.channel.send("Didn't add the emoji, couldn't find it.")
+                    # except discord.HTTPException:
+                    #     await reaction.message.channel.send("Error while trying to add the emoji.")
+                    # finally:
+                    #     await reaction.message.channel.send("Unknown error.")
