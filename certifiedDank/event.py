@@ -80,22 +80,29 @@ Channel: {messageChannel.name}"""
                         return
 
                     if len(messageEmbeds) >= 1:
-                        msg += f"""
-{messageContent}"""
                         em = messageEmbeds[0]
+
+                        msg += f"""
+{em.url}"""
+                        await channel.send(msg)
                         # await reaction.message.channel.send(em.url)
 
                         # embedFile = discord.Embed(title=em.title,url=em.url)
                         # embedFile.set_image(em.url)
-                        await channel.send(msg, embed=em)
+                        # await channel.send(msg, embed=em)
                         # await channel.send(embed=messageEmbeds[0])
                         return
 
                     if len(messageAttachments) >= 1:
                         a = messageAttachments[0]
-                        embedFile = discord.Embed(title=a.filename,url=a.url)
-                        embedFile.set_image(a.url)
-                        await channel.send(msg, embed=embedFile)
+
+                        msg += f"""
+{a.url}"""
+                        await channel.send(msg)
+
+                        # embedFile = discord.Embed(title=a.filename,url=a.url)
+                        # embedFile.set_image(a.url)
+                        # await channel.send(msg, embed=embedFile)
                         # await channel.send(files=messageAttachments)
                         return
 
