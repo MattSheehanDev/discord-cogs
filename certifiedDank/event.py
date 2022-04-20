@@ -4,6 +4,7 @@ from .abc import MixinMeta
 
 if TYPE_CHECKING:
     import discord
+
 from redbot.core import commands
 
 
@@ -78,7 +79,7 @@ class EventMixin(MixinMeta):
                     Channel: {messageChannel.name}
                     Date: {messageDate}
                     {messageContent}"""
-                    
+
                     if messageEmbeds is None:
                         await channel.send(msg)
                         return
