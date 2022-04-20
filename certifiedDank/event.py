@@ -95,8 +95,8 @@ Channel: {messageChannel.name}"""
                         em = messageEmbeds[0]
                         # await reaction.message.channel.send(em.url)
 
-                        embedFile = discord.Embed(title=em.title)
-                        embedFile.set_image(em.url)
+                        embedFile = discord.Embed(title=em.title,url=em.url)
+                        # embedFile.set_image(em.url)
                         await channel.send(msg, embed=embedFile)
                         # await channel.send(embed=messageEmbeds[0])
                         return
