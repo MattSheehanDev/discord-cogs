@@ -55,7 +55,7 @@ class EventMixin(MixinMeta):
             await reaction.message.channel.send("Config found but not enabled.")
             return
 
-        await reaction.message.channel.send("Configuration found")
+        # await reaction.message.channel.send("Configuration found")
 
         try:
             guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
@@ -93,6 +93,8 @@ Channel: {messageChannel.name}"""
                         msg += f"""
 {messageContent}"""
                         em = messageEmbeds[0]
+                        await reaction.message.channel.send(em.url)
+
                         embedFile = discord.Embed(title=em.title,url=em.url)
                         embedFile.set_image(em.url)
                         await channel.send(msg, embed=embedFile)
