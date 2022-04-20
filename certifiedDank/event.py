@@ -28,6 +28,12 @@ class EventMixin(MixinMeta):
         reactionId = reaction.emoji.id
         reactionCount = reaction.emoji.count
 
+        if reactionId is None:
+            await reaction.message.channel.send("Message reaction Id does not exist")
+        
+        if reactionCount is None:
+            await reaction.message.channel.send("Message reaction count does not exist")
+
         config: dict = await self.config.all_channels()
 
         # Only apply to enabled channels
@@ -49,8 +55,8 @@ class EventMixin(MixinMeta):
             # for key in guild_conf:
             #     await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
 
-            reaction.message.channel.send(f'Reaction emoji: {reactionId}')
-            reaction.message.channel.send(f'Reaction count: {reactionCount}')
+            reaction.message.channel.send(str(reactionId))
+            reaction.message.channel.send(str(reactionCount))
 
             emojiId: int = guild_conf["dank_emoji"]
             emojiCount: int = guild_conf["dank_count"]
