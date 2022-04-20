@@ -36,8 +36,16 @@ class EventMixin(MixinMeta):
             await reaction.message.channel.send("Config not found.")
             return
 
+        await reaction.message.channel.send("Configuration found")
+
         try:
             guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
+
+            await reaction.message.channel.send("Configuration read")
+
+            for key in guild_conf:
+                await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
+
             emojiId: int = guild_conf["dank_emoji"] or 963153387048829009
             emojiCount: list = guild_conf["dank_count"] or 1
 
