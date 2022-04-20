@@ -4,7 +4,6 @@ from .abc import MixinMeta
 
 if TYPE_CHECKING:
     import discord
-
 from redbot.core import commands
 
 
@@ -61,8 +60,8 @@ class EventMixin(MixinMeta):
             # for key in guild_conf:
             #     await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
 
-            reaction.message.channel.send(str(reactionId))
-            reaction.message.channel.send(str(reactionCount))
+            # await reaction.message.channel.send(str(reactionId))
+            # await reaction.message.channel.send(str(reactionCount))
 
             emojiId: int = guild_conf["dank_emoji"]
             emojiCount: int = guild_conf["dank_count"]
@@ -81,11 +80,11 @@ Date: {messageDate}
 {messageContent}
 """
                     if messageEmbeds is None:
-                        await channel.send(content=msg)
+                        await channel.send(msg)
                         return
 
                     if len(messageEmbeds) >= 1:
-                        await channel.send(content=msg,embed=messageEmbeds[0])
+                        await channel.send(msg, False, messageEmbeds[0])
                         return
 
 
@@ -96,4 +95,4 @@ Date: {messageDate}
         except discord.HTTPException:
             await reaction.message.channel.send("Error while trying to add the emoji.")
         finally:
-            reaction.message.channel.send("Unknown error.")
+            await reaction.message.channel.send("Unknown error.")
