@@ -33,6 +33,8 @@ class EventMixin(MixinMeta):
         messageContent = reaction.message.content
         messageEmbeds = reaction.message.embeds
 
+        await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
+
         if reactionId is None:
             await reaction.message.channel.send("Message reaction Id does not exist")
 
