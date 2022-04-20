@@ -26,7 +26,7 @@ class EventMixin(MixinMeta):
         # await reaction.message.channel.send("Emoji reaction detected.")
 
         reactionId = reaction.emoji.id
-        reactionCount = reaction.emoji.count
+        reactionCount = reaction.count
 
         if reactionId is None:
             await reaction.message.channel.send("Message reaction Id does not exist")
