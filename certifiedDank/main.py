@@ -49,7 +49,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         await ctx.tick()
 
     @certifiedDankAdmin.command()
-    async def emoji(self, ctx: commands.Context, id: int) -> None:
+    async def emoji(self, ctx: commands.Context, id: Any) -> None:
         """Change the emoji id for the trigger (server config)."""
         await self.config.guild(ctx.guild).set_raw("dank_emoji", value=id)
         await ctx.tick()
