@@ -27,9 +27,10 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         default_channel: Dict[str, Any] = {
             "enabled": True,
         }
-        default_guild: Dict[str, int] = {
+        default_guild: Dict[str, Any] = {
             "dank_emoji": 963153387048829009,
             "dank_count": 1,
+            "dank_hall": 966164843222671410
         }
         self.config.register_channel(**default_channel)
         self.config.register_guild(**default_guild)
@@ -57,4 +58,10 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
     async def count(self, ctx: commands.Context, count: int) -> None:
         """Enable / Disable the reaction system."""
         await self.config.guild(ctx.guild).set_raw("dank_count", value=count)
+        await ctx.tick()
+
+    @certifiedDankAdmin.command()
+    async def dankhall(self, ctx: commands.Context, id: int) -> None:
+        """Enable / Disable the reaction system."""
+        await self.config.guild(ctx.guild).set_raw("dank_hall", value=id)
         await ctx.tick()

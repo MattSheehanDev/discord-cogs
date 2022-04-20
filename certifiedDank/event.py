@@ -27,6 +27,8 @@ class EventMixin(MixinMeta):
 
         reactionId = reaction.emoji.id
         reactionCount = reaction.count
+        messageAuthor = reaction.message.author
+        messageChannel = reaction.message.channel
 
         if reactionId is None:
             await reaction.message.channel.send("Message reaction Id does not exist")
@@ -60,12 +62,21 @@ class EventMixin(MixinMeta):
 
             emojiId: int = guild_conf["dank_emoji"]
             emojiCount: int = guild_conf["dank_count"]
+            hallOfFame: int = guild_conf["dank_hall"]
 
             # reaction.message.channel.send(f'emojiId: {emojiId} , emojiCount: {emojiCount}')
 
             if reactionId == emojiId:
                 if reactionCount == emojiCount:
                     await reaction.message.reply("Certified Dank!")
+                    channel = self.bot.get_channel(hallOfFame)
+                    
+                    msg = f"""User: {messageAuthor.displayName}
+                    Channel: {messageChannel.name}
+                    {reaction.message.content}
+                    """
+                    await channel.message.send(msg)
+
 
         except discord.Forbidden:
             await reaction.message.channel.send("I don't have the permissions to add a reaction")
