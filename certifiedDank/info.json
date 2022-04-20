@@ -1,0 +1,10 @@
+{
+    "author" : ["fr33zingdog#4845"],
+    "install_msg" : "",
+    "name" : "certifiedDank",
+    "short" : "4 Stonks == Certified Dank",
+    "description" : "This cog counts the number of stonk reactions.",
+    "tags" : ["serious"],
+    "requirements" : [],
+    "hidden" : false
+}

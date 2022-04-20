@@ -10,13 +10,14 @@ from redbot.core import Config, commands
 
 from .event import EventMixin
 
+
 class CompositeClass(commands.CogMeta, ABCMeta):
     __slots__: tuple = ()
     pass
 
-class redditGifFix(EventMixin, commands.Cog, metaclass=CompositeClass):
-    """redditGifFix"""
-	
+
+class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
+    """certifiedDank"""
+
     def __init__(self, bot: Red):
         self.bot: Red = bot
-
