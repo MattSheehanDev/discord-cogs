@@ -75,7 +75,7 @@ class EventMixin(MixinMeta):
                     Channel: {messageChannel.name}
                     {reaction.message.content}
                     """
-                    await channel.message.send(msg)
+                    await channel.send(msg)
 
 
         except discord.Forbidden:
