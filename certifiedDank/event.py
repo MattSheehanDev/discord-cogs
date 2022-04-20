@@ -106,11 +106,11 @@ Channel: {messageChannel.name}"""
                         # await channel.send(files=messageAttachments)
                         return
 
-        # except discord.Forbidden:
-        #     await reaction.message.channel.send("I don't have the permissions to add a reaction")
-        # except discord.NotFound:
-        #     await reaction.message.channel.send("Didn't add the emoji, couldn't find it.")
-        # except discord.HTTPException:
-        #     await reaction.message.channel.send("Error while trying to add the emoji.")
-        # finally:
-        #     await reaction.message.channel.send("Unknown error.")
+                        # except discord.Forbidden:
+                        #     await reaction.message.channel.send("I don't have the permissions to add a reaction")
+                        # except discord.NotFound:
+                        #     await reaction.message.channel.send("Didn't add the emoji, couldn't find it.")
+                        # except discord.HTTPException:
+                        #     await reaction.message.channel.send("Error while trying to add the emoji.")
+                        # finally:
+                        #     await reaction.message.channel.send("Unknown error.")
