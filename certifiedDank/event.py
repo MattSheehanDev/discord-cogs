@@ -71,7 +71,7 @@ class EventMixin(MixinMeta):
                     await reaction.message.reply("Certified Dank!")
                     channel = self.bot.get_channel(hallOfFame)
                     
-                    msg = f"""User: {messageAuthor.displayName}
+                    msg = f"""User: {messageAuthor.display_name}
                     Channel: {messageChannel.name}
                     {reaction.message.content}
                     """
