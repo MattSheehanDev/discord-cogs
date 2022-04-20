@@ -29,7 +29,6 @@ class EventMixin(MixinMeta):
         reactionCount = reaction.count
         messageAuthor = reaction.message.author
         messageChannel = reaction.message.channel
-        messageDate = reaction.message.created_at
 
         messageContent = reaction.message.content
         messageEmbeds = reaction.message.embeds
@@ -74,10 +73,10 @@ class EventMixin(MixinMeta):
                 if reactionCount == emojiCount:
                     await reaction.message.reply("Certified Dank!")
                     channel = self.bot.get_channel(hallOfFame)
+                    await reaction.message.channel.send("Hall of fame channel found")
 
                     msg = f"""User: {messageAuthor.display_name}
                     Channel: {messageChannel.name}
-                    Date: {messageDate}
                     {messageContent}"""
 
                     await channel.send(msg)
