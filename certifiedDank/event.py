@@ -46,8 +46,8 @@ class EventMixin(MixinMeta):
             for key in guild_conf:
                 await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
 
-            emojiId: int = guild_conf["dank_emoji"] or 963153387048829009
-            emojiCount: list = guild_conf["dank_count"] or 1
+            emojiId: int = guild_conf["dank_emoji"]
+            emojiCount: int = guild_conf["dank_count"]
 
             reaction.message.channel.send(
                 f'emojiId: {emojiId} , emojiCount: {emojiCount}')
