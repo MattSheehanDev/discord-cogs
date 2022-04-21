@@ -18,7 +18,10 @@ class EventMixin(MixinMeta):
     async def on_reaction_add(self, reaction: discord.Reaction, user) -> None:
         # await reaction.message.channel.send("Emoji reaction detected.")
 
-        reactionId = reaction.emoji.id
+        reactionId = reaction.emoji
+        if not isinstance(reactionId, str):
+            reactionId = reaction.emoji.id
+        
         reactionCount = reaction.count
         messageAuthor = reaction.message.author
         messageChannel = reaction.message.channel
