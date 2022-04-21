@@ -85,22 +85,36 @@ class EventMixin(MixinMeta):
                 # await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
                 # await reaction.message.channel.send(f"Attached images: {len(messageAttachments)}")
 
-                msg = f"""{str(authorAvatar)} {authorMention}
-Channel: {messageChannel.name}
-Emoji: {emojiId}"""
+
+#                 msg = f"""{str(authorAvatar)} {authorMention}
+# Channel: {messageChannel.name}
+# Emoji: {emojiId}"""
+
+                embed=discord.Embed(title="Certified Dank")
+                embed.set_author(name=f"{authorName}", icon_url=str(authorAvatar))
+                embed.add_field(name="Channel", value=messageChannel.name, inline=True)
+                embed.add_field(name="Emoji", value=f"{emojiId}", inline=True)
 
                 if len(messageEmbeds) == 0 and len(messageAttachments) == 0:
-                    msg += f"""
-{messageContent}"""
-                    await channel.send(msg)
+#                     msg += f"""
+# {messageContent}"""
+                    # await channel.send(msg)
+                    
+                    embed.add_field(name="Content", value=f"{messageContent}", inline=False)
+                    await channel.send(embed=embed)
                     return
 
                 if len(messageEmbeds) >= 1:
                     em = messageEmbeds[0]
 
-                    msg += f"""
-{em.url}"""
-                    await channel.send(msg)
+#                     msg += f"""
+# {em.url}"""
+                    # await channel.send(msg)
+
+                    embed.add_field(name="Content", value=f"{em.url}", inline=False)
+                    await channel.send(embed=embed)
+
+
                     # await reaction.message.channel.send(em.url)
 
                     # embedFile = discord.Embed(title=em.title,url=em.url)
@@ -112,9 +126,12 @@ Emoji: {emojiId}"""
                 if len(messageAttachments) >= 1:
                     a = messageAttachments[0]
 
-                    msg += f"""
-{a.url}"""
-                    await channel.send(msg)
+#                     msg += f"""
+# {a.url}"""
+#                     await channel.send(msg)
+
+                    embed.add_field(name="Content", value=f"{a.url}", inline=False)
+                    await channel.send(embed=embed)
 
                     # embedFile = discord.Embed(title=a.filename,url=a.url)
                     # embedFile.set_image(a.url)
