@@ -65,11 +65,13 @@ class EventMixin(MixinMeta):
         hallOfFame: int = guild_conf["dank_hall"]
         responses: list = guild_conf["responses"]
 
-        # reaction.message.channel.send(f'emojiId: {emojiId} , emojiCount: {emojiCount}')
+        reaction.message.channel.send(f'emojiId: {emojiId} , reactionId: {reactionId}')
 
-        emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=await self.bot.get_context(reaction.message), argument=str(emojiId))
+        # emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=await self.bot.get_context(reaction.message), argument=str(emojiId))
 
-        if reactionId == emote.id:
+        # reaction.message.channel.send(f'emojiId: {emote.id} , reactionId: {reactionId}')
+
+        if reactionId == emojiId:
             if reactionCount == emojiCount:
                 res: str = random.choice(responses)
 
