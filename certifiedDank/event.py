@@ -36,11 +36,11 @@ class EventMixin(MixinMeta):
 
         # Only apply to enabled channels
         if reaction.message.channel.id not in config:
-            await reaction.message.channel.send("Channel id not found in config")
+            # await reaction.message.channel.send("Channel id not found in config")
             return
 
         if not config[reaction.message.channel.id]["enabled"]:
-            await reaction.message.channel.send("Config not enabled for channel.")
+            # await reaction.message.channel.send("Config not enabled for channel.")
             return
 
         # await reaction.message.channel.send("Configuration found")
