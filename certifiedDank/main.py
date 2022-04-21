@@ -93,7 +93,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         await ctx.tick()
 
     @certifiedDankAdmin.command()
-    async def emoji(self, ctx: commands.Context, *, emoji: str) -> None:
+    async def emoji(self, ctx: commands.Context, *, emoji: Any) -> None:
         """Add an emoji to the emojis list for the current channel."""
         # try:
         emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=ctx, argument=emoji)
