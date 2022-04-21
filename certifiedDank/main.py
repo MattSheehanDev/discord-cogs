@@ -95,15 +95,15 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
     @certifiedDankAdmin.command()
     async def emoji(self, ctx: commands.Context, *, emoji: str) -> None:
         """Add an emoji to the emojis list for the current channel."""
-        try:
-            emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=ctx, argument=emoji)
-        except:
-            if emojis.count(emoji) > 1:
-                await ctx.send("Please provide one emoji only.")
-                return
+        # try:
+        emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=ctx, argument=emoji)
+        # except:
+        #     if emojis.count(emoji) > 1:
+        #         await ctx.send("Please provide one emoji only.")
+        #         return
             # emote: list = list(emojis.get(emoji))
         
-        if not emote or emote is None:
+        if emote is None:
             await ctx.send("Couldn't find any emoji, please retry.")
             return
 
