@@ -28,6 +28,8 @@ class EventMixin(MixinMeta):
         authorMention = messageAuthor.mention
         authorAvatar = messageAuthor.avatar_url
         messageChannel = reaction.message.channel
+        messageUrl = reaction.message.jump_url
+        messageTimestamp = reaction.message.created_at
 
         messageContent = reaction.message.content
         messageEmbeds = reaction.message.embeds
@@ -95,12 +97,15 @@ class EventMixin(MixinMeta):
                 embed.add_field(name="Channel", value=messageChannel.name, inline=True)
                 embed.add_field(name="Emoji", value=f"{emojiId}", inline=True)
 
+                date = messageTimestamp.strftime("%Y/%m/%d")
+                embed.add_field(name="Date", value=f"{date}", inline=True)
+
                 if len(messageEmbeds) == 0 and len(messageAttachments) == 0:
 #                     msg += f"""
 # {messageContent}"""
                     # await channel.send(msg)
                     
-                    embed.add_field(name="Content", value=f"{messageContent}", inline=False)
+                    embed.add_field(name="Content", value=f"{messageUrl}", inline=False)
                     await channel.send(embed=embed)
                     # await channel.send(f"{messageContent}")
                     return
@@ -112,7 +117,8 @@ class EventMixin(MixinMeta):
 # {em.url}"""
                     # await channel.send(msg)
 
-                    embed.add_field(name="Content", value=f"{em.url}", inline=False)
+                    embed.add_field(name="Content", value=f"{messageUrl}", inline=False)
+                    embed.set_thumbnail(url=f"{em.url}")
                     await channel.send(embed=embed)
                     await channel.send(f"{em.url}")
 
@@ -132,7 +138,8 @@ class EventMixin(MixinMeta):
 # {a.url}"""
 #                     await channel.send(msg)
 
-                    embed.add_field(name="Content", value=f"{a.url}", inline=False)
+                    embed.add_field(name="Content", value=f"{messageUrl}", inline=False)
+                    embed.set_thumbnail(url=f"{a.url}")
                     await channel.send(embed=embed)
                     await channel.send(f"{a.url}")
 
