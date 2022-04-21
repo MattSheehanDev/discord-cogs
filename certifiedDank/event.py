@@ -24,6 +24,9 @@ class EventMixin(MixinMeta):
         
         reactionCount = reaction.count
         messageAuthor = reaction.message.author
+        authorName = messageAuthor.display_name
+        authorMention = messageAuthor.mention
+        authorAvatar = messageAuthor.avatar_url
         messageChannel = reaction.message.channel
 
         messageContent = reaction.message.content
@@ -65,7 +68,7 @@ class EventMixin(MixinMeta):
         hallOfFame: int = guild_conf["dank_hall"]
         responses: list = guild_conf["responses"]
 
-        await reaction.message.channel.send(f'emojiId: {emojiId} , reactionId: {reactionId}')
+        # await reaction.message.channel.send(f'emojiId: {emojiId} , reactionId: {reactionId}')
 
         # emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=await self.bot.get_context(reaction.message), argument=str(emojiId))
 
@@ -82,8 +85,9 @@ class EventMixin(MixinMeta):
                 # await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
                 # await reaction.message.channel.send(f"Attached images: {len(messageAttachments)}")
 
-                msg = f"""User: {messageAuthor.display_name}
-Channel: {messageChannel.name}"""
+                msg = f"""{str(authorAvatar)} {authorMention}
+Channel: {messageChannel.name}
+Emoji: {emojiId}"""
 
                 if len(messageEmbeds) == 0 and len(messageAttachments) == 0:
                     msg += f"""
