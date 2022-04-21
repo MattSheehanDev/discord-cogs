@@ -30,7 +30,10 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         default_guild: Dict[str, Any] = {
             "dank_emoji": 963153387048829009,
             "dank_count": 1,
-            "dank_hall": 966164843222671410
+            "dank_hall": 966164843222671410,
+            "responses": [
+                "Certified Dank!"
+            ]
         }
         self.config.register_channel(**default_channel)
         self.config.register_guild(**default_guild)
@@ -65,3 +68,26 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         """Change the Hall-of-Fame channel where messages are re-posted (server config)."""
         await self.config.guild(ctx.guild).set_raw("dank_hall", value=id)
         await ctx.tick()
+
+    @certifiedDankAdmin.command()
+    async def addResponse(self, ctx: commands.Context, res: str) -> None:
+        """Add certified dank response."""
+        async with self.config.guild(ctx.guild).responses() as responses:
+            if res in responses:
+                await ctx.send("That response already exists in the list.")
+                return
+            responses.append(res)
+
+        await ctx.tick()
+
+    @certifiedDankAdmin.command()
+    async def removeResponse(self, ctx: commands.Context, res: str) -> None:
+        """Remove certified dank response."""
+        async with self.config.guild(ctx.guild).responses() as responses:
+            if res not in responses:
+                await ctx.send("That response doesn't exists in the list.")
+                return
+            responses.remove(res)
+
+        await ctx.tick()
+

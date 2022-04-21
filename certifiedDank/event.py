@@ -5,6 +5,7 @@ from .abc import MixinMeta
 # if TYPE_CHECKING:
 #     import discord
 
+import random
 import discord
 from redbot.core import commands
 
@@ -58,12 +59,15 @@ class EventMixin(MixinMeta):
         emojiId: int = guild_conf["dank_emoji"]
         emojiCount: int = guild_conf["dank_count"]
         hallOfFame: int = guild_conf["dank_hall"]
+        responses: list = guild_conf["responses"]
 
         # reaction.message.channel.send(f'emojiId: {emojiId} , emojiCount: {emojiCount}')
 
         if reactionId == emojiId:
             if reactionCount == emojiCount:
-                await reaction.message.reply("Certified Dank!")
+                res: str = random.choice(responses)
+
+                await reaction.message.reply(res)
                 channel = self.bot.get_channel(hallOfFame)
                 # await reaction.message.channel.send("Hall of fame channel found")
 
