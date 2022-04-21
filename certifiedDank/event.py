@@ -100,8 +100,9 @@ class EventMixin(MixinMeta):
 # {messageContent}"""
                     # await channel.send(msg)
                     
-                    # embed.add_field(name="Content", value=f"{messageContent}", inline=False)
-                    await channel.send(messageContent, embed=embed)
+                    embed.add_field(name="Content", value=f"{messageContent}", inline=False)
+                    await channel.send(embed=embed)
+                    # await channel.send(f"{messageContent}")
                     return
 
                 if len(messageEmbeds) >= 1:
@@ -111,8 +112,9 @@ class EventMixin(MixinMeta):
 # {em.url}"""
                     # await channel.send(msg)
 
-                    # embed.add_field(name="Content", value=f"{em.url}", inline=False)
-                    await channel.send(em.url, embed=embed)
+                    embed.add_field(name="Content", value=f"{em.url}", inline=False)
+                    await channel.send(embed=embed)
+                    await channel.send(f"{em.url}")
 
 
                     # await reaction.message.channel.send(em.url)
@@ -130,8 +132,9 @@ class EventMixin(MixinMeta):
 # {a.url}"""
 #                     await channel.send(msg)
 
-                    # embed.add_field(name="Content", value=f"{a.url}", inline=False)
-                    await channel.send(a.url, embed=embed)
+                    embed.add_field(name="Content", value=f"{a.url}", inline=False)
+                    await channel.send(embed=embed)
+                    await channel.send(f"{a.url}")
 
                     # embedFile = discord.Embed(title=a.filename,url=a.url)
                     # embedFile.set_image(a.url)
