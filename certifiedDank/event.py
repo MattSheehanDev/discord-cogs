@@ -6,6 +6,7 @@ from .abc import MixinMeta
 #     import discord
 
 import random
+import emojis
 import discord
 from redbot.core import commands
 
@@ -56,14 +57,16 @@ class EventMixin(MixinMeta):
         # await reaction.message.channel.send(str(reactionId))
         # await reaction.message.channel.send(str(reactionCount))
 
-        emojiId: int = guild_conf["dank_emoji"]
+        emojiId: str | int = guild_conf["dank_emoji"]
         emojiCount: int = guild_conf["dank_count"]
         hallOfFame: int = guild_conf["dank_hall"]
         responses: list = guild_conf["responses"]
 
         # reaction.message.channel.send(f'emojiId: {emojiId} , emojiCount: {emojiCount}')
 
-        if reactionId == emojiId:
+        emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=await self.bot.get_context(reaction.message), argument=str(emojiId))
+
+        if reactionId == emote.id:
             if reactionCount == emojiCount:
                 res: str = random.choice(responses)
 

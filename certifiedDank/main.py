@@ -5,6 +5,7 @@ from abc import ABCMeta
 if TYPE_CHECKING:
     from redbot.core.bot import Red
 
+import emojis
 import discord
 from redbot.core import Config, commands
 
@@ -51,11 +52,11 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         await self.config.channel(ctx.channel).set_raw("enabled", value=true_or_false)
         await ctx.tick()
 
-    @certifiedDankAdmin.command()
-    async def emoji(self, ctx: commands.Context, id: int) -> None:
-        """Change the emoji id for the trigger (server config)."""
-        await self.config.guild(ctx.guild).set_raw("dank_emoji", value=id)
-        await ctx.tick()
+    # @certifiedDankAdmin.command()
+    # async def emoji(self, ctx: commands.Context, id: int) -> None:
+    #     """Change the emoji id for the trigger (server config)."""
+    #     await self.config.guild(ctx.guild).set_raw("dank_emoji", value=id)
+    #     await ctx.tick()
 
     @certifiedDankAdmin.command()
     async def count(self, ctx: commands.Context, count: int) -> None:
@@ -91,3 +92,20 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
 
         await ctx.tick()
 
+    @certifiedDankAdmin.command()
+    async def emoji(self, ctx: commands.Context, *, emoji: str) -> None:
+        """Add an emoji to the emojis list for the current channel."""
+        try:
+            emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=ctx, argument=emoji)
+        except:
+            if emojis.count(emoji) > 1:
+                await ctx.send("Please provide one emoji only.")
+                return
+            # emote: list = list(emojis.get(emoji))
+        
+        if not emote or emote is None:
+            await ctx.send("Couldn't find any emoji, please retry.")
+            return
+
+        await self.config.guild(ctx.guild).set_raw("dank_emoji", value=emote.id)
+        await ctx.tick()
