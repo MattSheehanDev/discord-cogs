@@ -52,11 +52,6 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         await self.config.channel(ctx.channel).set_raw("enabled", value=true_or_false)
         await ctx.tick()
 
-    # @certifiedDankAdmin.command()
-    # async def emoji(self, ctx: commands.Context, id: int) -> None:
-    #     """Change the emoji id for the trigger (server config)."""
-    #     await self.config.guild(ctx.guild).set_raw("dank_emoji", value=id)
-    #     await ctx.tick()
 
     @certifiedDankAdmin.command()
     async def count(self, ctx: commands.Context, count: int) -> None:

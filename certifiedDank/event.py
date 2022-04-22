@@ -35,125 +35,67 @@ class EventMixin(MixinMeta):
         messageEmbeds = reaction.message.embeds
         messageAttachments = reaction.message.attachments
 
-        # if reactionId is None:
-        #     await reaction.message.channel.send("Message reaction Id does not exist")
-
-        # if reactionCount is None:
-        #     await reaction.message.channel.send("Message reaction count does not exist")
 
         config: dict = await self.config.all_channels()
 
-        # Only apply to enabled channels
+        # Only apply to channels that are in the config and have been enabled
         if reaction.message.channel.id not in config:
-            # await reaction.message.channel.send("Channel id not found in config")
             return
 
         if not config[reaction.message.channel.id]["enabled"]:
-            # await reaction.message.channel.send("Config not enabled for channel.")
             return
 
-        # await reaction.message.channel.send("Configuration found")
-
-        # try:
         guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
-
-        # await reaction.message.channel.send("Configuration read")
 
         # for key in guild_conf:
         #     await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
-
-        # await reaction.message.channel.send(str(reactionId))
-        # await reaction.message.channel.send(str(reactionCount))
 
         emojiId: str | int = guild_conf["dank_emoji"]
         emojiCount: int = guild_conf["dank_count"]
         hallOfFame: int = guild_conf["dank_hall"]
         responses: list = guild_conf["responses"]
 
-        # await reaction.message.channel.send(f'emojiId: {emojiId} , reactionId: {reactionId}')
+        if reactionId == emojiId and reactionCount == emojiCount:
+            # Choose a random response to reply to the message with
+            res: str = random.choice(responses)
 
-        # emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=await self.bot.get_context(reaction.message), argument=str(emojiId))
+            # Send reploy to the certified dank post
+            await reaction.message.reply(res)
 
-        # reaction.message.channel.send(f'emojiId: {emote.id} , reactionId: {reactionId}')
+            # Get the "hall of fame" channel
+            channel = self.bot.get_channel(hallOfFame)
 
-        if reactionId == emojiId:
-            if reactionCount == emojiCount:
-                res: str = random.choice(responses)
+            # Create the embed object
+            embed = discord.Embed(title="Certified Dank")
+            embed.set_author(name=f"{authorName}", icon_url=str(authorAvatar))
+            embed.add_field(name="Channel", value=messageChannel.name, inline=True)
+            embed.add_field(name="Emoji", value=f"{emojiId}", inline=True)
 
-                await reaction.message.reply(res)
-                channel = self.bot.get_channel(hallOfFame)
-                # await reaction.message.channel.send("Hall of fame channel found")
+            date = messageTimestamp.strftime("%Y/%m/%d")
+            embed.add_field(name="Date", value=f"{date}", inline=True)
 
-                # await reaction.message.channel.send(f"Embedded images: {len(messageEmbeds)}")
-                # await reaction.message.channel.send(f"Attached images: {len(messageAttachments)}")
+            embed.add_field(name="Content", value=f"{messageUrl}", inline=False)
 
+            # If the certified dank post is not a post with an embed of attachment
+            # then it is probably not a meme post, just text.
+            if len(messageEmbeds) == 0 and len(messageAttachments) == 0:
+                await channel.send(embed=embed)
+                return
 
-#                 msg = f"""{str(authorAvatar)} {authorMention}
-# Channel: {messageChannel.name}
-# Emoji: {emojiId}"""
+            # If there is an embed as part of the post, take the first one
+            if len(messageEmbeds) >= 1:
+                em = messageEmbeds[0]
+                embed.add_field(name="Content", value=f"{messageUrl}", inline=False)
+                embed.set_thumbnail(url=f"{em.url}")
+                await channel.send(embed=embed)
+                await channel.send(f"{em.url}")
+                return
 
-                embed=discord.Embed(title="Certified Dank")
-                embed.set_author(name=f"{authorName}", icon_url=str(authorAvatar))
-                embed.add_field(name="Channel", value=messageChannel.name, inline=True)
-                embed.add_field(name="Emoji", value=f"{emojiId}", inline=True)
-
-                date = messageTimestamp.strftime("%Y/%m/%d")
-                embed.add_field(name="Date", value=f"{date}", inline=True)
-
-                if len(messageEmbeds) == 0 and len(messageAttachments) == 0:
-#                     msg += f"""
-# {messageContent}"""
-                    # await channel.send(msg)
-                    
-                    embed.add_field(name="Content", value=f"{messageUrl}", inline=False)
-                    await channel.send(embed=embed)
-                    # await channel.send(f"{messageContent}")
-                    return
-
-                if len(messageEmbeds) >= 1:
-                    em = messageEmbeds[0]
-
-#                     msg += f"""
-# {em.url}"""
-                    # await channel.send(msg)
-
-                    embed.add_field(name="Content", value=f"{messageUrl}", inline=False)
-                    embed.set_thumbnail(url=f"{em.url}")
-                    await channel.send(embed=embed)
-                    await channel.send(f"{em.url}")
-
-
-                    # await reaction.message.channel.send(em.url)
-
-                    # embedFile = discord.Embed(title=em.title,url=em.url)
-                    # embedFile.set_image(em.url)
-                    # await channel.send(msg, embed=em)
-                    # await channel.send(embed=messageEmbeds[0])
-                    return
-
-                if len(messageAttachments) >= 1:
-                    a = messageAttachments[0]
-
-#                     msg += f"""
-# {a.url}"""
-#                     await channel.send(msg)
-
-                    embed.add_field(name="Content", value=f"{messageUrl}", inline=False)
-                    embed.set_thumbnail(url=f"{a.url}")
-                    await channel.send(embed=embed)
-                    await channel.send(f"{a.url}")
-
-                    # embedFile = discord.Embed(title=a.filename,url=a.url)
-                    # embedFile.set_image(a.url)
-                    # await channel.send(msg, embed=embedFile)
-                    # await channel.send(files=messageAttachments)
-                    return
-
-                    # except discord.Forbidden:
-                    #     await reaction.message.channel.send("I don't have the permissions to add a reaction")
-                    # except discord.NotFound:
-                    #     await reaction.message.channel.send("Didn't add the emoji, couldn't find it.")
-                    # except discord.HTTPException:
-                    #     await reaction.message.channel.send("Error while trying to add the emoji.")
-                    # finally:
-                    #     await reaction.message.channel.send("Unknown error.")
+            # If there is an attachement as part of the post, take the first one
+            if len(messageAttachments) >= 1:
+                a = messageAttachments[0]
+                embed.add_field(name="Content", value=f"{messageUrl}", inline=False)
+                embed.set_thumbnail(url=f"{a.url}")
+                await channel.send(embed=embed)
+                await channel.send(f"{a.url}")
+                return
