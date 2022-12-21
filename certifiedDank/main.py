@@ -49,7 +49,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
     @certifiedDankAdmin.command()
     async def enable(self, ctx: commands.Context, true_or_false: bool) -> None:
         """Enable / Disable the reaction system for the current guild."""
-        await self.config.guild(ctx.guild).set_raw("enabled", value=true_or_false)
+        await self.config.guild(ctx.guild).set_raw("dank_enabled", value=true_or_false)
         await ctx.tick()
 
     @certifiedDankAdmin.command()

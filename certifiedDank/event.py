@@ -75,7 +75,7 @@ class EventMixin(MixinMeta):
             print(f"guild not in config: {guild.id}", file=sys.stderr)
             return
 
-        if not config[guild.id]["enabled"]:
+        if not config[guild.id]["dank_enabled"]:
             print(f"guild false in config: {guild.id}", file=sys.stderr)
             return
 
