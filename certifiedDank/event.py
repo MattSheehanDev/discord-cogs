@@ -41,7 +41,7 @@ class EventMixin(MixinMeta):
             # reaction = rx
             print(f"MESSAGE reaction: {rx}", file=sys.stderr)
 
-            if emoji == rx.emoji:
+            if emoji == str(rx) or emoji == rx.emoji:
                 reaction = rx
                 print("true", file=sys.stderr)
                 break
