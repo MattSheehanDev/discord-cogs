@@ -29,7 +29,7 @@ class EventMixin(MixinMeta):
         member = message.author
         reactions = message.reactions
 
-        reaction, = (reaction for reaction in reactions if reaction == emoji or str(reaction) == emoji or reaction.emoji == emoji)
+        reaction = reactions[0]
         for idx, r in enumerate(reactions):
             rx = reactions[idx]
             # print(f"rx emoji: {rx.emoji}", file=sys.stderr)
@@ -43,7 +43,7 @@ class EventMixin(MixinMeta):
             print(f"MESSAGE reaction ID: {rx.emoji.id}", file=sys.stderr)
             print(f"MESSAGE reaction EMOJI: {rx.emoji}", file=sys.stderr)
 
-            if emoji == rx or emoji == str(rx) or emoji == rx.emoji:
+            if emoji == rx or str(emoji).lower() == str(rx).lower() or emoji == rx.emoji:
                 reaction = rx
                 print("true", file=sys.stderr)
                 break
