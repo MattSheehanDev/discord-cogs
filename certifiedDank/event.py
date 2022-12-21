@@ -22,9 +22,10 @@ class EventMixin(MixinMeta):
 
         emoji = payload.emoji
         guild = self.bot.get_guild(payload.guild_id)
-        member = guild.get_member(payload.user_id)
+        # member = guild.get_member(payload.user_id)
         messageChannel = guild.get_channel(payload.channel_id)
         message = await messageChannel.fetch_message(payload.message_id)
+        member = message.author
         reactions = message.reactions
 
         reaction = reactions[0]
