@@ -94,6 +94,10 @@ class EventMixin(MixinMeta):
         responses: list = guild_conf["responses"]
         dank_emojis: list = guild_conf["dank_emojis"]
 
+        for em in dank_emojis:
+            print(f"DANK EMOJI: {em}", file=sys.stderr)
+        print(f"REACTION EMOJI: {reactionId}", file=sys.stderr)
+
         if reactionId in dank_emojis and reactionCount == emojiCount:
             # Choose a random response to reply to the message with
             res: str = random.choice(responses)
