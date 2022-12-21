@@ -88,12 +88,13 @@ class EventMixin(MixinMeta):
         # for key in guild_conf:
         #     await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
 
-        emojiId: str | int = guild_conf["dank_emoji"]
+        # emojiId: str | int = guild_conf["dank_emoji"]
         emojiCount: int = guild_conf["dank_count"]
         hallOfFame: int = guild_conf["dank_hall"]
         responses: list = guild_conf["responses"]
+        dank_emojis: list = guild_conf["dank_emojis"]
 
-        if reactionId == emojiId and reactionCount == emojiCount:
+        if reactionId in dank_emojis and reactionCount == emojiCount:
             # Choose a random response to reply to the message with
             res: str = random.choice(responses)
 

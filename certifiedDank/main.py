@@ -31,7 +31,9 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         }
         default_guild: Dict[str, Any] = {
             "dank_enabled": True,
-            "dank_emoji": 963153387048829009,
+            "dank_emojis": [
+                963153387048829009
+            ],
             "dank_count": 1,
             "dank_hall": 966164843222671410,
             "responses": [
@@ -114,8 +116,30 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
 
         await ctx.tick()
 
+    # @certifiedDankAdmin.command()
+    # async def emoji(self, ctx: commands.Context, *, emoji: str) -> None:
+    #     """Add an emoji to the emojis list for the current channel."""
+    #     try:
+    #         emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=ctx, argument=emoji)
+    #     except:
+    #         if emojis.count(emoji) > 1:
+    #             await ctx.send("Please provide one emoji only.")
+    #             return
+    #         emote: list = list(emojis.get(emoji))
+        
+    #     if not emote or emote is None:
+    #         await ctx.send("Couldn't find any emoji, please retry.")
+    #         return
+
+    #     if isinstance(emote, discord.Emoji):
+    #         await self.config.guild(ctx.guild).set_raw("dank_emoji", value=emote.id)
+    #     else:
+    #         await self.config.guild(ctx.guild).set_raw("dank_emoji", value=emote[0])
+
+    #     await ctx.tick()
+
     @certifiedDankAdmin.command()
-    async def emoji(self, ctx: commands.Context, *, emoji: str) -> None:
+    async def addEmoji(self, ctx: commands.Context, *, emoji: str) -> None:
         """Add an emoji to the emojis list for the current channel."""
         try:
             emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=ctx, argument=emoji)
@@ -129,9 +153,45 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
             await ctx.send("Couldn't find any emoji, please retry.")
             return
 
-        if isinstance(emote, discord.Emoji):
-            await self.config.guild(ctx.guild).set_raw("dank_emoji", value=emote.id)
-        else:
-            await self.config.guild(ctx.guild).set_raw("dank_emoji", value=emote[0])
+        async with self.config.guild(ctx.guild).dank_emojis() as dank_emojis:
+            emote_id = None
+            if isinstance(emote, discord.Emoji):
+                emote_id = emote.id
+            else:
+                emote_id = emote[0]
+
+            if emote_id in dank_emojis:
+                await ctx.send("That emoji already exists in the list.")
+                return
+            dank_emojis.append(emote_id)
+
+        await ctx.tick()
+
+    @certifiedDankAdmin.command()
+    async def removeResponse(self, ctx: commands.Context, res: str) -> None:
+        """Remove an emoji to the emojis list for the current channel."""
+        try:
+            emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=ctx, argument=emoji)
+        except:
+            if emojis.count(emoji) > 1:
+                await ctx.send("Please provide one emoji only.")
+                return
+            emote: list = list(emojis.get(emoji))
+        
+        if not emote or emote is None:
+            await ctx.send("Couldn't find any emoji, please retry.")
+            return
+
+        async with self.config.guild(ctx.guild).dank_emojis() as dank_emojis:
+            emote_id = None
+            if isinstance(emote, discord.Emoji):
+                emote_id = emote.id
+            else:
+                emote_id = emote[0]
+
+            if emote_id not in dank_emojis:
+                await ctx.send("That emoji does not exists in the list.")
+                return
+            dank_emojis.remove(emote_id)
 
         await ctx.tick()
