@@ -18,7 +18,7 @@ class EventMixin(MixinMeta):
     async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent) -> None:
         # await reaction.message.channel.send("Emoji reaction detected.")
 
-        print(f"channel: {payload.channel_id}", file=sys.stderr)
+        print(f"---------- channel: {payload.channel_id}", file=sys.stderr)
 
         emoji = payload.emoji
         print(f"EMOJI REACTION: {emoji}", file=sys.stderr)
@@ -39,6 +39,7 @@ class EventMixin(MixinMeta):
             # print(f"emoji_id: {emoji.id}", file=sys.stderr)
 
             # reaction = rx
+            print(f"MESSAGE reaction: {rx}", file=sys.stderr)
 
             if emoji == rx.emoji:
                 reaction = rx
