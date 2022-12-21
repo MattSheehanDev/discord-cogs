@@ -78,6 +78,10 @@ class EventMixin(MixinMeta):
         if not config[guild.id]["dank_enabled"]:
             print(f"guild false in config: {guild.id}", file=sys.stderr)
             return
+        
+        if channel.id in config[guild.id]["blacklist"]:
+            print(f"channel blacklisted: {channel.id}", file=sys.stderr)
+            return
 
         guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
 
