@@ -82,7 +82,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         await ctx.tick()
 
     @certifiedDankAdmin.command()
-    async def removeResponse(self, ctx: commands.Context, channel: int) -> None:
+    async def removeBlacklist(self, ctx: commands.Context, channel: int) -> None:
         """Remove given channel from the black list."""
         async with self.config.guild(ctx.guild).blacklist() as blacklist:
             if channel not in blacklist:
