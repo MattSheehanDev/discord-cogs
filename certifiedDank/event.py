@@ -28,15 +28,15 @@ class EventMixin(MixinMeta):
         reactions = message.reactions
 
         reaction = None
-        for idx, x in enumerate(reactions):
-            r = reactions[idx]
-            print(f"reaction emoji: {r.emoji}", file=sys.stderr)
-            print(f"x: {x}", file=sys.stderr)
+        for idx, r in enumerate(reactions):
+            rx = reactions[idx]
+            print(f"reaction emoji: {rx.emoji}", file=sys.stderr)
+            print(f"rx: {r}", file=sys.stderr)
 
             print(f"emoji: {emoji}", file=sys.stderr)
             print(f"emoji_id: {emoji.id}", file=sys.stderr)
 
-            if emoji.id == r.emoji.id:
+            if emoji == r:
                 reaction = r
                 break
         
