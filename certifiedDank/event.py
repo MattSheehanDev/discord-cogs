@@ -24,7 +24,7 @@ class EventMixin(MixinMeta):
         guild = self.bot.get_guild(payload.guild_id)
         member = guild.get_member(payload.user_id)
         messageChannel = guild.get_channel(payload.channel_id)
-        message = channel.fetch_message(payload.message_id)
+        message = messageChannel.fetch_message(payload.message_id)
         reactions = message.reactions
 
         reaction = None
