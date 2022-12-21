@@ -71,10 +71,10 @@ class EventMixin(MixinMeta):
         config: dict = await self.config.all_channels()
 
         # Only apply to channels that are in the config and have been enabled
-        if reaction.message.channel.id not in config:
+        if guild.id not in config:
             return
 
-        if not config[reaction.message.channel.id]["enabled"]:
+        if not config[guild.id]["enabled"]:
             return
 
         guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
