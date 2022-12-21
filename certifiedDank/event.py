@@ -21,6 +21,7 @@ class EventMixin(MixinMeta):
         print(f"channel: {payload.channel_id}", file=sys.stderr)
 
         emoji = payload.emoji
+        print(f"EMOJI REACTION: {emoji}", file=sys.stderr)
         guild = self.bot.get_guild(payload.guild_id)
         # member = guild.get_member(payload.user_id)
         messageChannel = guild.get_channel(payload.channel_id)
@@ -31,11 +32,11 @@ class EventMixin(MixinMeta):
         reaction = reactions[0]
         for idx, r in enumerate(reactions):
             rx = reactions[idx]
-            print(f"rx emoji: {rx.emoji}", file=sys.stderr)
-            print(f"r: {r}", file=sys.stderr)
+            # print(f"rx emoji: {rx.emoji}", file=sys.stderr)
+            # print(f"r: {r}", file=sys.stderr)
 
-            print(f"emoji: {emoji}", file=sys.stderr)
-            print(f"emoji_id: {emoji.id}", file=sys.stderr)
+            # print(f"emoji: {emoji}", file=sys.stderr)
+            # print(f"emoji_id: {emoji.id}", file=sys.stderr)
 
             # reaction = rx
 
@@ -45,7 +46,7 @@ class EventMixin(MixinMeta):
                 break
         
 
-        print(f"reaction: {reaction}", file=sys.stderr)
+        print(f"SELECTED EMOJI: {reaction}", file=sys.stderr)
 
         reactionId = reaction.emoji
         if not isinstance(reactionId, str):
