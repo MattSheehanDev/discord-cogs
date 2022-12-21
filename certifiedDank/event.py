@@ -38,12 +38,12 @@ class EventMixin(MixinMeta):
             # print(f"emoji: {emoji}", file=sys.stderr)
             # print(f"emoji_id: {emoji.id}", file=sys.stderr)
 
-            # reaction = rx
-            print(f"MESSAGE reaction: {rx}", file=sys.stderr)
-            print(f"MESSAGE reaction ID: {rx.emoji.id}", file=sys.stderr)
-            print(f"MESSAGE reaction EMOJI: {rx.emoji}", file=sys.stderr)
+            # # reaction = rx
+            # print(f"MESSAGE reaction: {rx}", file=sys.stderr)
+            # print(f"MESSAGE reaction ID: {rx.emoji.id}", file=sys.stderr)
+            # print(f"MESSAGE reaction EMOJI: {rx.emoji}", file=sys.stderr)
 
-            if emoji == rx or str(emoji).lower() == str(rx).lower() or emoji == rx.emoji:
+            if emoji == rx or emoji == rx.emoji or str(emoji).lower() == str(rx).lower() or str(emoji).lower() == str(rx.emoji).lower():
                 reaction = rx
                 print("true", file=sys.stderr)
                 break
