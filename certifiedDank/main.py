@@ -30,7 +30,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
             "blacklist": [],
         }
         default_guild: Dict[str, Any] = {
-            "dank_enabled": True
+            "dank_enabled": True,
             "dank_emoji": 963153387048829009,
             "dank_count": 1,
             "dank_hall": 966164843222671410,
