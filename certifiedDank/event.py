@@ -27,7 +27,7 @@ class EventMixin(MixinMeta):
         message = await messageChannel.fetch_message(payload.message_id)
         reactions = message.reactions
 
-        reaction = None
+        reaction = reactions[0]
         for idx, r in enumerate(reactions):
             rx = reactions[idx]
             print(f"rx emoji: {rx.emoji}", file=sys.stderr)
@@ -38,10 +38,10 @@ class EventMixin(MixinMeta):
 
             reaction = rx
 
-            if hash(emoji) == hash(rx.emoji):
-                reaction = rx
-                print("true", file=sys.stderr)
-                break
+            # if hash(emoji) == hash(rx.emoji):
+            #     reaction = rx
+            #     print("true", file=sys.stderr)
+            #     break
         
 
         print(f"reaction: {reaction}", file=sys.stderr)
