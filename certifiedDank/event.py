@@ -54,7 +54,7 @@ class EventMixin(MixinMeta):
         messageAuthor = reaction.message.author
         authorName = member.display_name # messageAuthor.display_name
         authorMention = member.mention # messageAuthor.mention
-        authorAvatar = member.display_avatar.url # messageAuthor.avatar_url
+        authorAvatar = member.avatar.url # messageAuthor.avatar_url
         # messageChannel = reaction.message.channel
         messageUrl = message.jump_url #reaction.message.jump_url
         messageTimestamp = message.created_at # reaction.message.created_at
