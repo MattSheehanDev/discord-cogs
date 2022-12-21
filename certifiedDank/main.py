@@ -27,9 +27,10 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
             self, identifier=2091831, force_registration=True)
 
         default_channel: Dict[str, Any] = {
-            "enabled": True,
+            "blacklist": [],
         }
         default_guild: Dict[str, Any] = {
+            "dank_enabled": True
             "dank_emoji": 963153387048829009,
             "dank_count": 1,
             "dank_hall": 966164843222671410,
@@ -67,9 +68,11 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         await ctx.tick()
 
     @certifiedDankAdmin.command()
-    async def blacklist(self, ctx: commands.Context, true_or_false: bool) -> None:
+    async def blacklist(self, ctx: commands.Context, channel: int) -> None:
         """Black list the reaction system for the given channel."""
-        await self.config.channel(ctx.channel).set_raw("blacklist", value=true_or_false)
+        blacklist = await self.config.channel(ctx.channel).get_raw("blacklist")
+        blacklist.append(channel)
+        await self.config.channel(ctx.channel).set_raw("blacklist", value=blacklist)
         await ctx.tick()
 
     @certifiedDankAdmin.command()
