@@ -48,10 +48,9 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
 
     @certifiedDankAdmin.command()
     async def enable(self, ctx: commands.Context, true_or_false: bool) -> None:
-        """Enable / Disable the reaction system for the current channel."""
-        await self.config.channel(ctx.channel).set_raw("enabled", value=true_or_false)
+        """Enable / Disable the reaction system for the current guild."""
+        await self.config.guild(ctx.guild).set_raw("enabled", value=true_or_false)
         await ctx.tick()
-
 
     @certifiedDankAdmin.command()
     async def count(self, ctx: commands.Context, count: int) -> None:
@@ -63,6 +62,12 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
     async def dankhall(self, ctx: commands.Context, id: int) -> None:
         """Change the Hall-of-Fame channel where messages are re-posted (server config)."""
         await self.config.guild(ctx.guild).set_raw("dank_hall", value=id)
+        await ctx.tick()
+
+    @certifiedDankAdmin.command()
+    async def blacklist(self, ctx: commands.Context, true_or_false: bool) -> None:
+        """Black list the reaction system for the given channel."""
+        await self.config.channel(ctx.channel).set_raw("blacklist", value=true_or_false)
         await ctx.tick()
 
     @certifiedDankAdmin.command()
