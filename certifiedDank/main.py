@@ -168,7 +168,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         await ctx.tick()
 
     @certifiedDankAdmin.command()
-    async def removeEmoji(self, ctx: commands.Context, res: str) -> None:
+    async def removeEmoji(self, ctx: commands.Context, *, res: str) -> None:
         """Remove an emoji to the emojis list for the current channel."""
         try:
             emote: discord.Emoji = await commands.EmojiConverter().convert(ctx=ctx, argument=emoji)
