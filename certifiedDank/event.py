@@ -30,8 +30,12 @@ class EventMixin(MixinMeta):
         reaction = None
         for idx, x in enumerate(reactions):
             r = reactions[idx]
-            print(f"emoji: {r.emoji}", file=sys.stderr)
+            print(f"reaction emoji: {r.emoji}", file=sys.stderr)
             print(f"x: {x}", file=sys.stderr)
+
+            print(f"emoji: {emoji}", file=sys.stderr)
+            print(f"emoji_id: {emoji.id}", file=sys.stderr)
+
             if emoji.id == r.emoji.id:
                 reaction = r
                 break
