@@ -28,7 +28,8 @@ class EventMixin(MixinMeta):
         reactions = message.reactions
 
         reaction = None
-        for r in reactions:
+        for idx, x in enumerate(reactions):
+            r = reactions[idx]
             if emoji.id == r.emoji.id:
                 reaction = r
                 break
