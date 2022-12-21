@@ -55,6 +55,8 @@ class EventMixin(MixinMeta):
         authorName = member.display_name # messageAuthor.display_name
         authorMention = member.mention # messageAuthor.mention
         print(f"avatar: {member.avatar}", file=sys.stderr)
+        print(f"avatar display: {member.display_avatar}", file=sys.stderr)
+        print(f"avatar default: {member.default_avatar}", file=sys.stderr)
         authorAvatar = member.avatar # messageAuthor.avatar_url
         # messageChannel = reaction.message.channel
         messageUrl = message.jump_url #reaction.message.jump_url
