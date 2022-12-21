@@ -30,16 +30,18 @@ class EventMixin(MixinMeta):
         reaction = None
         for idx, r in enumerate(reactions):
             rx = reactions[idx]
-            print(f"reaction emoji: {rx.emoji}", file=sys.stderr)
-            print(f"rx: {r}", file=sys.stderr)
+            print(f"rx emoji: {rx.emoji}", file=sys.stderr)
+            print(f"r: {r}", file=sys.stderr)
 
             print(f"emoji: {emoji}", file=sys.stderr)
             print(f"emoji_id: {emoji.id}", file=sys.stderr)
 
-            if emoji == r:
+            if emoji == rx.emoji:
                 reaction = rx
                 break
         
+
+        print(f"reaction: {reaction}", file=sys.stderr)
         
         reactionId = reaction.emoji
         if not isinstance(reactionId, str):
