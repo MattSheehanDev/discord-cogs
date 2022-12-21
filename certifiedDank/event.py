@@ -98,7 +98,7 @@ class EventMixin(MixinMeta):
             embed = discord.Embed(title="Certified Dank")
             embed.set_author(name=f"{authorName}", icon_url=str(authorAvatar))
             embed.add_field(name="Channel", value=messageChannel.name, inline=True)
-            embed.add_field(name="Emoji", value=f"<{reaction.emoji.name}:{reaction.emoji.id}>", inline=True)
+            embed.add_field(name="Emoji", value=f"{reaction.emoji}", inline=True)
 
             date = messageTimestamp.strftime("%Y/%m/%d")
             embed.add_field(name="Date", value=f"{date}", inline=True)
