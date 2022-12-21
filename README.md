@@ -22,7 +22,7 @@ When the emoji reaction threshold is reached for a post, the cog will send the p
 
 ```
 # install certified dank cog
-.cog install certifiedDank
+.cog install discord-cogs certifiedDank
 
 # fetch latest version
 .cog update certifiedDank

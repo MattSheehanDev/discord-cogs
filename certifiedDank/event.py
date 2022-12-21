@@ -18,9 +18,12 @@ class EventMixin(MixinMeta):
     async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent) -> None:
         # await reaction.message.channel.send("Emoji reaction detected.")
 
+        print(f"channel: {payload.channel_id}")
+
         emoji = payload.emoji
-        member = payload.member
-        messageChannel = self.bot.get_channel(payload.channel_id)
+        guild = self.bot.get_guild(payload.guild_id)
+        member = guild.get_member(payload.user_id)
+        messageChannel = guild.get_channel(payload.channel_id)
         message = channel.fetch_message(payload.message_id)
         reactions = message.reactions
 
