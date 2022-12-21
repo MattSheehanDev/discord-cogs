@@ -37,8 +37,9 @@ class EventMixin(MixinMeta):
             print(f"emoji_id: {emoji.id}", file=sys.stderr)
 
             if emoji == r:
-                reaction = r
+                reaction = rx
                 break
+        
         
         reactionId = reaction.emoji
         if not isinstance(reactionId, str):
