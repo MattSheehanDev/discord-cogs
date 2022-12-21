@@ -68,7 +68,7 @@ class EventMixin(MixinMeta):
         messageAttachments = message.attachments # reaction.message.attachments
 
 
-        config: dict = await self.config.all_channels()
+        config: dict = await self.config.all_guilds()
 
         # Only apply to channels that are in the config and have been enabled
         if guild.id not in config:
