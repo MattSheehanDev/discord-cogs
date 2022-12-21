@@ -4,7 +4,7 @@ from .abc import MixinMeta
 
 # if TYPE_CHECKING:
 #     import discord
-
+import sys
 import random
 import emojis
 import discord
@@ -18,7 +18,7 @@ class EventMixin(MixinMeta):
     async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent) -> None:
         # await reaction.message.channel.send("Emoji reaction detected.")
 
-        print(f"channel: {payload.channel_id}")
+        print(f"channel: {payload.channel_id}", file=sys.stderr)
 
         emoji = payload.emoji
         guild = self.bot.get_guild(payload.guild_id)
@@ -30,6 +30,8 @@ class EventMixin(MixinMeta):
         reaction = None
         for idx, x in enumerate(reactions):
             r = reactions[idx]
+            print(f"emoji: {r.emoji}", file=sys.stderr)
+            print(f"x: {x}", file=sys.stderr)
             if emoji.id == r.emoji.id:
                 reaction = r
                 break
