@@ -27,7 +27,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
             self, identifier=2091831, force_registration=True)
 
         default_channel: Dict[str, Any] = {
-            "blacklist": [],
+
         }
         default_guild: Dict[str, Any] = {
             "dank_enabled": True,
@@ -36,6 +36,9 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
             "dank_hall": 966164843222671410,
             "responses": [
                 "Certified Dank!"
+            ],
+            "blacklist": [
+
             ]
         }
         self.config.register_channel(**default_channel)
@@ -67,13 +70,27 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         await self.config.guild(ctx.guild).set_raw("dank_hall", value=id)
         await ctx.tick()
 
+
     @certifiedDankAdmin.command()
-    async def blacklist(self, ctx: commands.Context, channel: int) -> None:
-        """Black list the reaction system for the given channel."""
-        blacklist = await self.config.channel(ctx.channel).get_raw("blacklist")
-        blacklist.append(channel)
-        await self.config.channel(ctx.channel).set_raw("blacklist", value=blacklist)
+    async def addBlacklist(self, ctx: commands.Context, channel: int) -> None:
+        """Append given channel to the black list."""
+        async with self.config.guild(ctx.guild).blacklist() as blacklist:
+            if channel in blacklist:
+                await ctx.send("That channel is already blacklisted.")
+                return
+            blacklist.append(channel)
         await ctx.tick()
+
+    @certifiedDankAdmin.command()
+    async def removeResponse(self, ctx: commands.Context, channel: int) -> None:
+        """Remove given channel from the black list."""
+        async with self.config.guild(ctx.guild).blacklist() as blacklist:
+            if channel not in blacklist:
+                await ctx.send("That channel doesn't exists in the blacklist.")
+                return
+            blacklist.remove(channel)
+        await ctx.tick()
+
 
     @certifiedDankAdmin.command()
     async def addResponse(self, ctx: commands.Context, res: str) -> None:
