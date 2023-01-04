@@ -78,6 +78,10 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         """Change the Hall-of-Fame channel where messages are re-posted (server config)."""
         await self.config.channel(ctx.guild).set_raw("dank_hall", value=channel)
         await self.config.channel(ctx.guild).set_raw("dank_count", value=count)
+        print(f"----------------")
+        print(f"CHANNEL CONFIG HALL: {channel}", file=sys.stderr)
+        print(f"CHANNEL CONFIG COUNT: {channel}", file=sys.stderr)
+        print(f"----------------")
         await ctx.tick()
 
 
