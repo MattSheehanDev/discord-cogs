@@ -80,7 +80,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         await self.config.channel(ctx.guild).set_raw("dank_count", value=count)
         print(f"----------------")
         print(f"CHANNEL CONFIG HALL: {channel}", file=sys.stderr)
-        print(f"CHANNEL CONFIG COUNT: {channel}", file=sys.stderr)
+        print(f"CHANNEL CONFIG COUNT: {count}", file=sys.stderr)
         print(f"----------------")
         await ctx.tick()
 
