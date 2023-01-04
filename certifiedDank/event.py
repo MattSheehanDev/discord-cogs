@@ -88,6 +88,9 @@ class EventMixin(MixinMeta):
             return
 
         guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
+        channel_conf: dict = await self.config.channel(messageChannel).get_raw()
+
+        print(f"CHANNEL_CONF: {channel_conf}")
 
         # for key in guild_conf:
         #     await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
