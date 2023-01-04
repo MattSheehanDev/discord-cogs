@@ -74,21 +74,21 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
 
 
     @certifiedDankAdmin.command()
-    async def channelDankHallCount(self, ctx: commands.Context, channel_id, dankhall_id, count: int) -> None:
+    async def channelDankHallCount(self, ctx: commands.Context, channel_id: int, dankhall_id: int, count: int) -> None:
         """Change the Hall-of-Fame channel where messages are re-posted (server config)."""
         # channel = channel_id
         # if type(channel_id) == int:
         channel = ctx.guild.get_channel(channel_id)
 
-        # dankhall = dankhall_id
-        # if type(dankhall_id) == int:
-        dankhall = ctx.guild.get_channel(dankhall_id)
+        # # dankhall = dankhall_id
+        # # if type(dankhall_id) == int:
+        # dankhall = ctx.guild.get_channel(dankhall_id)
         
-        await self.config.channel(channel).set_raw("dank_hall", value=dankhall.id)
+        await self.config.channel(channel).set_raw("dank_hall", value=dankhall_id)
         await self.config.channel(channel).set_raw("dank_count", value=count)
         print(f"----------------")
         print(f"CHANNEL CONFIG CHANNEL: {channel}", file=sys.stderr)
-        print(f"CHANNEL CONFIG HALL: {dankhall}", file=sys.stderr)
+        print(f"CHANNEL CONFIG HALL: {dankhall_id}", file=sys.stderr)
         print(f"CHANNEL CONFIG COUNT: {count}", file=sys.stderr)
         print(f"----------------")
         await ctx.tick()
