@@ -107,9 +107,9 @@ class EventMixin(MixinMeta):
             print(f"CHANNEL_CONF: {channel_conf}", file=sys.stderr)
 
             if channel_conf["dank_count"] is not None:
-                emojiCount: int = guild_conf["dank_count"]
+                emojiCount: int = channel_conf["dank_count"]
             if channel_conf["dank_hall"] is not None:
-                hallOfFame: int = guild_conf["dank_hall"]
+                hallOfFame: int = channel_conf["dank_hall"]
 
         # for em in dank_emojis:
         #     print(f"DANK EMOJI: {em}", file=sys.stderr)
