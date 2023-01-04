@@ -76,9 +76,11 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
     @certifiedDankAdmin.command()
     async def channelDankHallCount(self, ctx: commands.Context, channel_id, dankhall_id, count: int) -> None:
         """Change the Hall-of-Fame channel where messages are re-posted (server config)."""
+        channel = channel_id
         if type(channel_id) == int:
             channel = ctx.guild.get_channel(channel_id)
 
+        dankhall = dankhall_id
         if type(dankhall_id) == int:
             dankhall = ctx.guild.get_channel(dankhall_id)
         
