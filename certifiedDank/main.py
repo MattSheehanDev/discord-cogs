@@ -27,15 +27,7 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
             self, identifier=2091831, force_registration=True)
 
         default_channel: Dict[str, Any] = {
-            "dank_hall": 966164843222671410,
-            "dank_emojis": [
-                963153387048829009
-            ],
-            "dank_count": 1,
-            "dank_hall": 966164843222671410,
-            "responses": [
-                "Certified Dank!"
-            ],
+
         }
         default_guild: Dict[str, Any] = {
             "dank_enabled": True,
@@ -61,20 +53,6 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
         """Gets the admin commands for certifiedDank cog."""
         pass
 
-    @commands.group()
-    @commands.mod_or_permissions()
-    @commands.guild_only()
-    async def certifiedDankDebug(self, ctx: commands.Context) -> None:
-        """Gets the debug commands for certifiedDank cog."""
-        pass
-
-    @certifiedDankDebug.command()
-    async def clearAllChannelConfigs(self, ctx: commands.Context) -> None:
-        """Clear all channel configs"""
-        await self.config.clear_all_channels()
-        print(f"Channel configs cleared : {self.config.get_raw()}", file=sys.stderr)
-        await ctx.tick()
-
     @certifiedDankAdmin.command()
     async def enable(self, ctx: commands.Context, true_or_false: bool) -> None:
         """Enable / Disable the reaction system for the current guild."""
@@ -92,6 +70,14 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
     async def dankhall(self, ctx: commands.Context, id: int) -> None:
         """Change the Hall-of-Fame channel where messages are re-posted (server config)."""
         await self.config.guild(ctx.guild).set_raw("dank_hall", value=id)
+        await ctx.tick()
+
+
+    @certifiedDankAdmin.command()
+    async def channelDankHallCount(self, ctx: commands.Context, channel: int, count: int) -> None:
+        """Change the Hall-of-Fame channel where messages are re-posted (server config)."""
+        await self.config.channel(ctx.guild).set_raw("dank_hall", value=channel)
+        await self.config.channel(ctx.guild).set_raw("dank_count", value=count)
         await ctx.tick()
 
 
@@ -136,6 +122,21 @@ class certifiedDank(EventMixin, commands.Cog, metaclass=CompositeClass):
                 return
             responses.remove(res)
 
+        await ctx.tick()
+    
+
+    @commands.group()
+    @commands.mod_or_permissions()
+    @commands.guild_only()
+    async def certifiedDankDebug(self, ctx: commands.Context) -> None:
+        """Gets the debug commands for certifiedDank cog."""
+        pass
+
+    @certifiedDankDebug.command()
+    async def clearAllChannelConfigs(self, ctx: commands.Context) -> None:
+        """Clear all channel configs"""
+        await self.config.clear_all_channels()
+        print(f"Channel configs cleared : {self.config.get_raw()}", file=sys.stderr)
         await ctx.tick()
 
     # @certifiedDankAdmin.command()

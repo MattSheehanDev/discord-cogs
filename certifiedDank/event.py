@@ -88,9 +88,6 @@ class EventMixin(MixinMeta):
             return
 
         guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
-        channel_conf: dict = await self.config.channel(messageChannel).get_raw()
-
-        print(f"CHANNEL_CONF: {channel_conf}", file=sys.stderr)
 
         # for key in guild_conf:
         #     await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
@@ -100,6 +97,19 @@ class EventMixin(MixinMeta):
         hallOfFame: int = guild_conf["dank_hall"]
         responses: list = guild_conf["responses"]
         dank_emojis: list = guild_conf["dank_emojis"]
+
+        # Check if some channel configs exist
+        # Channel configs will overwrite guild configs
+        channel_configs: dict = await self.config.all_channels()
+
+        if messageChannel.id in channel_configs:
+            channel_conf: dict = await self.config.channel(messageChannel).get_raw()
+            print(f"CHANNEL_CONF: {channel_conf}", file=sys.stderr)
+
+            if channel_conf["dank_count"] is not None:
+                emojiCount: int = guild_conf["dank_count"]
+            if channel_conf["dank_hall"] is not None:
+                hallOfFame: int = guild_conf["dank_hall"]
 
         # for em in dank_emojis:
         #     print(f"DANK EMOJI: {em}", file=sys.stderr)
