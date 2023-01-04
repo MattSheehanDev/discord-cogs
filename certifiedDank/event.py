@@ -90,7 +90,7 @@ class EventMixin(MixinMeta):
         guild_conf: dict = await self.config.guild(reaction.message.guild).get_raw()
         channel_conf: dict = await self.config.channel(messageChannel).get_raw()
 
-        print(f"CHANNEL_CONF: {channel_conf}")
+        print(f"CHANNEL_CONF: {channel_conf}", file=sys.stderr)
 
         # for key in guild_conf:
         #     await reaction.message.channel.send(f'{key}: {guild_conf[key]}')
@@ -101,9 +101,9 @@ class EventMixin(MixinMeta):
         responses: list = guild_conf["responses"]
         dank_emojis: list = guild_conf["dank_emojis"]
 
-        for em in dank_emojis:
-            print(f"DANK EMOJI: {em}", file=sys.stderr)
-        print(f"REACTION EMOJI: {reactionId}", file=sys.stderr)
+        # for em in dank_emojis:
+        #     print(f"DANK EMOJI: {em}", file=sys.stderr)
+        # print(f"REACTION EMOJI: {reactionId}", file=sys.stderr)
 
         if reactionId in dank_emojis and reactionCount == emojiCount:
             # Choose a random response to reply to the message with
