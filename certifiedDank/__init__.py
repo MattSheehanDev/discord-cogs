@@ -7,5 +7,5 @@ if TYPE_CHECKING:
 from .main import certifiedDank
 
 
-def setup(bot: Red):
-    bot.add_cog(certifiedDank(bot))
+async def setup(bot: Red):
+    await bot.add_cog(certifiedDank(bot))
